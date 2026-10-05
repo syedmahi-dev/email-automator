@@ -131,3 +131,124 @@ For institutional integrations where an upstream student information system (SIS
 
 - **`POST /api/import`**: Accepts JSON arrays of `students` and `marks`, generating a secure 128-bit hex `importId` and redirect URL.
 - **`GET /api/import?id=<importId>`**: Retrieves and loads the staged dataset directly into the client-side state on launch.
+
+---
+
+## 7. Deep-Dive Architecture & Protocol Diagrams
+
+### 7.1. End-to-End Execution Sequence
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Operator as Operator (Browser)
+    participant Client as Next.js Client Engine
+    participant Auth as NextAuth (/api/auth)
+    participant GoogleAuth as Google Identity (OAuth 2.0)
+    participant Server as Next.js Send API (/api/send-email)
+    participant Gmail as Google Gmail REST API v1
+    actor Recipient as Recipient Mailbox
+
+    Operator->>Client: Sign in with Google
+    Client->>Auth: Initiate OAuth Flow
+    Auth->>GoogleAuth: Redirect to Consent (gmail.send scope)
+    GoogleAuth-->>Auth: Callback with Authorization Code
+    Auth->>GoogleAuth: Exchange Code for Access Token
+    GoogleAuth-->>Auth: Return Access Token
+    Auth-->>Client: Establish Encrypted Session
+
+    Operator->>Client: Ingest CSVs & Template Email
+    Client->>Client: Execute Join Heuristics & Match Files
+    Operator->>Client: Review Grid & Click "Send All"
+
+    loop For Each Recipient (Sequential 2s Delay)
+        Client->>Server: POST /api/send-email (to, subject, html, files)
+        Server->>Server: Validate NextAuth Session & Token
+        Server->>Server: Assemble RFC 2045 Multipart MIME
+        Server->>Server: Encode Payload to RFC 4648 Base64URL
+        Server->>Gmail: POST /gmail/v1/users/me/messages/send
+        Gmail->>Recipient: Deliver Message (DKIM/SPF Validated)
+        Gmail-->>Server: Return Message ID (200 OK)
+        Server-->>Client: Response { success: true, messageId }
+        Client->>Client: Update Row State to "Sent" (Green)
+        Client->>Client: Wait 2,000ms Throttle Interval
+    end
+
+    Client-->>Operator: Display Batch Complete Summary
+```
+
+### 7.2. RFC 2045 / RFC 2822 MIME Envelope Structure
+
+```mermaid
+graph TD
+    Root["Raw MIME Message String"] --> Headers["RFC 2822 Message Headers"]
+    Root --> BodyMixed["RFC 2045 Multipart/Mixed Payload"]
+
+    Headers --> H1["From: Sender Name <sender@example.com>"]
+    Headers --> H2["To: recipient@institution.edu"]
+    Headers --> H3["Subject: =?utf-8?B?...?= (RFC 2047 Encoded)"]
+    Headers --> H4["MIME-Version: 1.0"]
+    Headers --> H5["Content-Type: multipart/mixed; boundary='----=_Part_xxx'"]
+
+    BodyMixed --> Boundary1["--boundary"]
+    BodyMixed --> TextPart["Part 1: Rendered HTML Message"]
+    TextPart --> T1["Content-Type: text/html; charset=utf-8"]
+    TextPart --> T2["Dynamic Handlebars Rendered HTML Content"]
+
+    BodyMixed --> Boundary2["--boundary"]
+    BodyMixed --> AttPart["Part 2: Binary File Attachment"]
+    AttPart --> A1["Content-Type: application/pdf; name='report.pdf'"]
+    AttPart --> A2["Content-Disposition: attachment; filename='report.pdf'"]
+    AttPart --> A3["Content-Transfer-Encoding: base64"]
+    AttPart --> A4["Chunked Base64 (76 characters per line, CRLF)"]
+
+    BodyMixed --> BoundaryEnd["--boundary--"]
+
+    Root --> B64URL["Transform: URL-Safe Base64 Serialization (+ -> -, / -> _, trim =)"]
+    B64URL --> GmailCall["users.messages.send({ raw: encodedString })"]
+```
+
+### 7.3. Recipient Record State Machine
+
+```mermaid
+stateDiagram-v2
+    [*] --> Ingested: CSV Uploaded / External Import
+    Ingested --> Validating: Identify Join Key & Email Column
+    Validating --> NoEmail: Missing Recipient Email
+    Validating --> InvalidEmail: Malformed Regex Syntax
+    Validating --> Ready: Valid Recipient Address & Merged Attributes
+
+    NoEmail --> Ready: Inline Grid Edit
+    InvalidEmail --> Ready: Inline Grid Edit
+
+    Ready --> Sending: Batch Dispatch Initiated
+    Sending --> Sent: Gmail API Returns 200 OK
+    Sending --> Failed: Gmail API Error / Rate Limit
+
+    Failed --> Ready: Retry Failed Triggered
+    Sent --> [*]
+```
+
+### 7.4. External System Import Bridge Flow
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant SIS as School ERP / SIS System
+    participant ImportAPI as Next.js Import API (/api/import)
+    participant Storage as In-Memory / Staging Storage
+    actor User as Operator / Administrator
+    participant Client as Email Automator UI
+
+    SIS->>ImportAPI: POST /api/import (JSON payload: students, marks)
+    ImportAPI->>ImportAPI: Generate Cryptographic 128-bit Hex importId
+    ImportAPI->>Storage: Stage Payload temporarily (keyed by importId)
+    ImportAPI-->>SIS: Return { success: true, importId, redirectUrl }
+    SIS->>User: Redirect Operator to redirectUrl (?importId=...)
+    User->>Client: Open Email Automator in Browser
+    Client->>ImportAPI: GET /api/import?id=<importId>
+    ImportAPI->>Storage: Retrieve Staged Payload
+    ImportAPI-->>Client: Return JSON Dataset
+    Client->>Client: Hydrate Recipient Graph in Browser Memory
+    Client-->>User: Render Pre-Loaded Merged Data & Compose View
+```

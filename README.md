@@ -77,29 +77,45 @@ All dispatches are governed by Google's global sending policies. Senders are res
 
 ## Architecture & Security Model
 
+```mermaid
+graph TD
+    subgraph Client ["Client Browser (Volatile Memory Space)"]
+        CSV1["Primary CSV (e.g. Student Roster)"] --> Parser["Papa Parse Engine"]
+        CSV2["Secondary CSV (e.g. Exam Scores)"] --> Parser
+        Parser --> Joiner["Deterministic Key Matcher"]
+        Joiner --> Graph["In-Memory Recipient Graph"]
+        Files["File Attachments (PDFs)"] --> AttMatch["Prefix/Suffix Matcher"]
+        AttMatch --> Graph
+        Editor["WYSIWYG Rich Text Editor"] --> Hbs["Handlebars Engine"]
+        Hbs --> Grid["Interactive Confidence Grid"]
+        Graph --> Grid
+        Grid -->|Human Review & Inline Edit| Batch["Client Batch Orchestrator"]
+    end
+
+    subgraph Server ["Next.js Server Layer (App Router)"]
+        Batch -->|Sequential POST with 2s Pacing| ApiRoute["/api/send-email Route"]
+        AuthGuard["NextAuth Session & Token Guard"] --> ApiRoute
+        ApiRoute --> Mime["RFC 2045 MIME Packet Builder"]
+        Mime --> B64["Base64URL Serializer"]
+    end
+
+    subgraph GoogleCloud ["Google Cloud Infrastructure"]
+        B64 -->|OAuth 2.0 Bearer Authorization| GmailAPI["Gmail REST API v1 (users.messages.send)"]
+        GmailAPI --> SentFolder["Sender 'Sent' Mailbox (Native DKIM/SPF)"]
+        GmailAPI --> Recipient["Recipient Inboxes"]
+    end
 ```
-+-------------------------------------------------------------+
-|                      Client Browser                         |
-|  - Papa Parse (In-memory CSV engine)                       |
-|  - Handlebars Compiler                                      |
-|  - Attachment Matcher                                       |
-|  - Interactive Confidence Preview Grid (CRUD/Search)        |
-+------------------------------+------------------------------+
-                               | HTTPS (2s sequential delay)
-                               v
-+-------------------------------------------------------------+
-|                    Next.js Server Layer                     |
-|  - NextAuth Session Guard (verifies OAuth access token)     |
-|  - RFC 2045 MIME Constructor & UTF-8 Base64 Formatter       |
-+------------------------------+------------------------------+
-                               | TLS 1.3 / OAuth 2.0
-                               v
-+-------------------------------------------------------------+
-|                   Google Cloud (Gmail API)                  |
-|  - Dispatched via sender's own Gmail account                |
-|  - Appears natively in sender's "Sent" folder               |
-|  - SPF/DKIM authenticated by Google infrastructure         |
-+-------------------------------------------------------------+
+
+### Operational Pipeline
+
+```mermaid
+flowchart LR
+    A["1. Upload CSVs"] --> B["2. Join Datasets"]
+    B --> C["3. Template Body"]
+    C --> D["4. Map Files"]
+    D --> E["5. Live Preview"]
+    E --> F["6. Throttled Send"]
+    F --> G["7. Delivery Confirmed"]
 ```
 
 For an in-depth breakdown of trust zones, MIME chunking, and architectural tradeoffs, refer to the [Systems Architecture Documentation](docs/ARCHITECTURE.md).

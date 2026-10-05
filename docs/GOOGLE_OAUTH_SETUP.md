@@ -12,6 +12,16 @@ Unlike legacy email utilities that ask for raw account passwords or generate per
 - **Zero Inbox Access**: The application cannot view received emails, read drafts, access contacts, or delete mail.
 - **Direct Mail Pipeline**: Outgoing messages appear directly in your official Gmail/Google Workspace "Sent" folder, preserving sender reputation and deliverability.
 
+```mermaid
+flowchart LR
+    User([Operator]) -->|1. Sign in| Client[Next.js App]
+    Client -->|2. Redirect| GoogleAuth[Google OAuth 2.0]
+    GoogleAuth -->|3. User Approves gmail.send| Consent[Consent Granted]
+    Consent -->|4. Return Auth Code| NextAuth[/api/auth Callback]
+    NextAuth -->|5. Exchange for Token| GoogleTokens[Google Token Endpoint]
+    GoogleTokens -->|6. Encrypted Session| Client
+```
+
 ---
 
 ## Step 1: Create a Google Cloud Project
