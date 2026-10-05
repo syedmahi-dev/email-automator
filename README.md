@@ -35,7 +35,7 @@ Traditional email tools create serious friction:
 
 ---
 
-## 🎯 Deterministic Schema-Agnostic Column Mapping
+## Deterministic Schema-Agnostic Column Mapping
 
 **There is no predefined CSV structure you must follow.** Email Automator accepts any CSV layout and lets you define what columns contain what in the UI:
 
@@ -172,7 +172,7 @@ Email Automator authenticates via Google OAuth 2.0 to access the `gmail.send` AP
    - Add **Authorized redirect URI**: `http://localhost:3000/api/auth/callback/google`
    - Copy your **Client ID** and **Client Secret**.
 
-> 📖 **Need visual step-by-step guidance?** Read our comprehensive [Google OAuth Setup Guide](docs/GOOGLE_OAUTH_SETUP.md) for complete walkthroughs and troubleshooting instructions.
+> **Need visual step-by-step guidance?** Read our comprehensive [Google OAuth Setup Guide](docs/GOOGLE_OAUTH_SETUP.md) for complete walkthroughs and troubleshooting instructions.
 
 ---
 
