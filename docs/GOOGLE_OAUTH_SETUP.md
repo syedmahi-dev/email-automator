@@ -86,10 +86,10 @@ Before creating client credentials, Google requires an OAuth consent screen conf
 4. Set the **Name**: `Email Automator Web Client`.
 5. Under **Authorized JavaScript origins**, click **+ Add URI**:
    - For local development: `http://localhost:3000`
-   - For production deployment: `https://your-domain.com`
+   - For production deployment: `https://emailauto.syedmahi.me`
 6. Under **Authorized redirect URIs**, click **+ Add URI**:
    - For local development: `http://localhost:3000/api/auth/callback/google`
-   - For production deployment: `https://your-domain.com/api/auth/callback/google`
+   - For production deployment: `https://emailauto.syedmahi.me/api/auth/callback/google`
    > **Note**: The path `/api/auth/callback/google` is the exact callback route managed by NextAuth.
 7. Click **Create**.
 8. A modal dialog will appear displaying:

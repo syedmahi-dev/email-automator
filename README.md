@@ -5,7 +5,7 @@
 **A schema-agnostic, zero-retention bulk email automation tool for educators, teams, and administrators.**  
 Merge arbitrary spreadsheets, template personalized messages, auto-match PDF attachments, and safely send directly through your own Google account.
 
-[![Live Demo on Vercel](https://img.shields.io/badge/Live_Demo-email--automator--psi.vercel.app-black?style=for-the-badge&logo=vercel)](https://email-automator-psi.vercel.app)
+[![Live Application](https://img.shields.io/badge/Live_App-emailauto.syedmahi.me-000000?style=for-the-badge&logo=googlechrome)](https://emailauto.syedmahi.me)
 
 <br/>
 
