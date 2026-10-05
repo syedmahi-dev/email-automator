@@ -236,7 +236,7 @@ function HomeContent() {
       {/* Header */}
       <div className="app-header">
         <div className="logo">
-          <div className="logo-icon"><Mail size={18} color="white" /></div>
+          <img src="/branding/email-automator-mark.svg" alt="Email Automator Logo" width="36" height="36" style={{ borderRadius: '10px' }} />
           <h1>Email Automator</h1>
         </div>
         {session && (

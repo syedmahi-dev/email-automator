@@ -7,6 +7,13 @@ export default function LandingPage() {
       
       {/* Hero Section */}
       <div className="text-center" style={{ padding: '32px 0' }}>
+        <img 
+          src="/branding/email-automator-mark.svg" 
+          alt="Email Automator Logo" 
+          width="72" 
+          height="72" 
+          style={{ margin: '0 auto 20px', display: 'block', borderRadius: '18px', boxShadow: '0 10px 25px -5px rgba(37, 99, 235, 0.25)' }} 
+        />
         <h1 style={{ fontSize: '2.5rem', marginBottom: '16px', letterSpacing: '-0.04em' }}>Automate Personalized Bulk Emails</h1>
         <p style={{ fontSize: '1.125rem', color: 'var(--text-secondary)', maxWidth: '600px', margin: '0 auto', lineHeight: 1.6 }}>
           Send grades, announcements, and individualized reports to hundreds of students or clients in seconds—directly from your own Gmail account.

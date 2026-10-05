@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1320" height="360" viewBox="0 0 1320 360">
+  <defs>
+    <linearGradient id="g" x1="18" y1="20" x2="108" y2="108" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2563EB"/>
+      <stop offset="1" stop-color="#7C3AED"/>
+    </linearGradient>
+  </defs>
+
+  <g transform="translate(36 36) scale(2.25)">
+    <rect x="8" y="8" width="112" height="112" rx="28" fill="url(#g)"/>
+    <rect x="24" y="31" width="11" height="11" rx="3" fill="#FFFFFF"/>
+    <rect x="24" y="58.5" width="11" height="11" rx="3" fill="#FFFFFF"/>
+    <rect x="24" y="86" width="11" height="11" rx="3" fill="#FFFFFF"/>
+    <path d="M39 36.5 C53 36.5 52 56 65 60" fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round"/>
+    <path d="M39 64 H64" fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round"/>
+    <path d="M39 91.5 C53 91.5 52 72 65 68" fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round"/>
+    <path d="M64 46 L101 64 L64 82 Z" fill="#FFFFFF"/>
+    <path d="M64 46 L80 64 L64 82" fill="none" stroke="url(#g)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <text x="345" y="175"
+        font-family="Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+        font-size="92" font-weight="750" letter-spacing="-3.3" fill="#111827">
+    Email Automator
+  </text>
+  <text x="351" y="238"
+        font-family="Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+        font-size="29" font-weight="500" letter-spacing=".4" fill="#4B5563">
+    Merge data. Personalize safely. Send from your Google account.
+  </text>
+</svg>

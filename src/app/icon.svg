@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="g" x1="18" y1="20" x2="108" y2="108" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2563EB"/>
+      <stop offset="1" stop-color="#7C3AED"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="8" y="8" width="112" height="112" rx="28" fill="url(#g)"/>
+
+  <!-- three arbitrary data inputs -->
+  <rect x="24" y="31" width="11" height="11" rx="3" fill="#FFFFFF" opacity=".98"/>
+  <rect x="24" y="58.5" width="11" height="11" rx="3" fill="#FFFFFF" opacity=".98"/>
+  <rect x="24" y="86" width="11" height="11" rx="3" fill="#FFFFFF" opacity=".98"/>
+
+  <!-- merge paths -->
+  <path d="M39 36.5 C53 36.5 52 56 65 60" fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round"/>
+  <path d="M39 64 H64" fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round"/>
+  <path d="M39 91.5 C53 91.5 52 72 65 68" fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round"/>
+
+  <!-- envelope / send form -->
+  <path d="M64 46 L101 64 L64 82 Z" fill="#FFFFFF"/>
+  <path d="M64 46 L80 64 L64 82" fill="none" stroke="url(#g)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

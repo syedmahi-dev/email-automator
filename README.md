@@ -1,6 +1,12 @@
 <div align="center">
 
-# Email Automator
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="public/branding/email-automator-wordmark-dark.svg">
+  <img src="public/branding/email-automator-wordmark.svg" alt="Email Automator Logo" width="380">
+</picture>
+
+<br/>
+<br/>
 
 **A schema-agnostic, zero-retention bulk email automation tool for educators, teams, and administrators.**  
 Merge arbitrary spreadsheets, template personalized messages, auto-match PDF attachments, and safely send directly through your own Google account.
@@ -257,7 +263,12 @@ email-automator/
 ├── docs/
 │   ├── ARCHITECTURE.md          # Deep dive into systems design, trust boundaries & MIME protocol
 │   └── GOOGLE_OAUTH_SETUP.md    # Step-by-step Google Developer Console setup guide
-├── public/                      # Static SVG icons and branding assets
+├── public/
+│   ├── branding/                # Official logos, wordmarks, and favicon assets
+│   │   ├── email-automator-mark.svg
+│   │   ├── email-automator-wordmark.svg
+│   │   └── email-automator-favicon-192.png
+│   └── *.svg                    # Static SVG vector assets
 ├── src/
 │   ├── app/
 │   │   ├── api/
@@ -265,6 +276,7 @@ email-automator/
 │   │   │   ├── import/route.ts              # External system data staging bridge
 │   │   │   └── send-email/route.ts          # RFC 2045 MIME generator & Gmail API caller
 │   │   ├── globals.css          # Editorial theme styling tokens & utility rules
+│   │   ├── icon.png             # Application favicon mark (192x192)
 │   │   ├── layout.tsx           # Root HTML layout and provider wrapping
 │   │   └── page.tsx             # Main operational UI (Bulk & Manual sending pipelines)
 │   └── components/
@@ -281,6 +293,34 @@ email-automator/
 ├── package.json                 # Project dependencies and script definitions
 └── tsconfig.json                # TypeScript compiler configuration
 ```
+
+---
+
+## Brand Identity & Assets
+
+The official Email Automator visual identity represents the convergence of disparate, semi-structured datasets into a single, reliable send action:
+- **Left Input Nodes**: Represents arbitrary spreadsheet schemas, disparate rows, and external data sources.
+- **Center Convergence**: Represents deterministic joining, data normalization, and Handlebars templating.
+- **Right Arrow-Envelope**: Represents safe, personalized dispatch directly through the sender's authenticated Google identity.
+
+### Color Palette
+
+| Token | Hex Value | Role |
+| :--- | :--- | :--- |
+| **Brand Blue** | `#2563EB` | Primary brand accent and send action |
+| **Brand Violet** | `#7C3AED` | Convergence gradient and secondary accent |
+| **Ink** | `#111827` | Primary dark surfaces and typography |
+| **Muted Slate** | `#4B5563` | Secondary text and structural borders |
+
+### Asset Index
+
+All vector and raster assets are located in [`public/branding/`](public/branding/):
+- **Full Wordmark (Light)**: [`email-automator-wordmark.svg`](public/branding/email-automator-wordmark.svg)
+- **Full Wordmark (Dark)**: [`email-automator-wordmark-dark.svg`](public/branding/email-automator-wordmark-dark.svg)
+- **Compact Mark**: [`email-automator-mark.svg`](public/branding/email-automator-mark.svg)
+- **Monochrome Mark**: [`email-automator-mark-mono.svg`](public/branding/email-automator-mark-mono.svg)
+- **PWA & Favicon**: [`email-automator-favicon-192.png`](public/branding/email-automator-favicon-192.png)
+- **High-Res Master Renders**: `email-automator-mark-512.png` and `email-automator-mark-1024.png`
 
 ---
 
