@@ -2,45 +2,69 @@
 
 # Email Automator
 
-**Secure, in-memory bulk email personalization and operational dispatch platform powered by Next.js and Google Cloud.**
+**A schema-agnostic, zero-retention bulk email automation tool for educators, teams, and administrators.**  
+Merge arbitrary spreadsheets, template personalized messages, auto-match PDF attachments, and safely send directly through your own Google account.
+
+[![Live Demo on Vercel](https://img.shields.io/badge/Live_Demo-email--automator--psi.vercel.app-black?style=for-the-badge&logo=vercel)](https://email-automator-psi.vercel.app)
+
+<br/>
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](LICENSE)
 [![Next.js](https://img.shields.io/badge/Next.js-16.2.9-black?style=flat-square&logo=next.js)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-19.2.4-blue?style=flat-square&logo=react)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
-[![Google Cloud](https://img.shields.io/badge/Google_Cloud-Gmail_API_v1-4285F4?style=flat-square&logo=google-cloud)](https://cloud.google.com/)
+[![Gmail API](https://img.shields.io/badge/Google-Gmail_API_v1-4285F4?style=flat-square&logo=google-cloud)](https://cloud.google.com/)
 [![Zero Data Retention](https://img.shields.io/badge/Security-Zero_Persistence-059669?style=flat-square)](docs/ARCHITECTURE.md)
 
 </div>
 
 ---
 
-## Executive Overview
+## What Problem Does Email Automator Solve?
 
-**Email Automator** is a specialized, privacy-first email delivery platform designed for educators, academic coordinators, team leads, and business administrators. It eliminates the manual friction and reputational risk of sending individualized emails, reports, grades, and notices at scale.
+Email Automator was built for the messy reality of everyday institutional communication. 
 
-Traditional bulk mail utilities either require exposing raw account passwords (SMTP anti-patterns) or uploading sensitive institutional spreadsheets into third-party marketing databases. **Email Automator** takes an entirely different architectural approach:
+Teachers, university coordinators, and small team leads often sit with two separate spreadsheets—one containing student contact details (`ID`, `Name`, `Student Email`), another containing semester scores or dues (`Roll_No`, `Midterm`, `Final_Grade`)—along with a folder of individual PDF report cards and a strict deadline. 
 
-1. **Client-Side In-Memory Processing**: CSV parsing, dataset joining, template compilation, and attachment matching take place entirely within volatile browser memory.
-2. **Direct Google OAuth Delegation**: Outgoing emails are dispatched directly through your official Google Workspace or Gmail account using a restricted, send-only scope (`https://www.googleapis.com/auth/gmail.send`).
-3. **Operator Verification Safeguards**: Every recipient record, merged attribute, CC/BCC target, and matched attachment is presented in an interactive confidence grid for inline verification and editing before any email is dispatched.
+Traditional email tools create serious friction:
+- **Rigid CSV Requirements**: Most tools force you to reformat your spreadsheets to fit a rigid template (e.g., column must literally be named `email`).
+- **Privacy & Security Risks**: Handing over sensitive student records or billing data to third-party mass mailers or sharing raw account passwords via SMTP compromises institutional security.
+- **Fear of Irreversible Mistakes**: A single misaligned column can deliver private academic records or financial details to the wrong person.
+
+**Email Automator** provides a safe, inspectable bridge: upload your spreadsheets exactly as exported from your school portal or Excel, map your columns visually, preview every rendered email in a live confidence grid, and deliver each message directly from your own Google account.
+
+---
+
+## 🎯 Deterministic Schema-Agnostic Column Mapping
+
+**There is no predefined CSV structure you must follow.** Email Automator accepts any CSV layout and lets you define what columns contain what in the UI:
+
+1. **Flexible Recipient Email Selection**:
+   - The system automatically detects candidate email columns, but you have full manual control.
+   - Use the **Recipient Email Column** dropdown to select any column in your dataset (`Email`, `User_Mail`, `ParentEmail`, `Contact`, etc.).
+2. **Deterministic Multi-Sheet Merging**:
+   - Upload two independent CSVs (e.g., Student Master List + Grade Sheet).
+   - Use the **Match Columns to Merge Data** selector to join them on any matching key (`ID = Roll_No`, `RegNo = StudentID`, etc.). Matching is whitespace-trimmed and case-insensitive.
+3. **Universal Variable Interpolation**:
+   - Every column header in your CSV automatically becomes a dynamic Handlebars variable (`{{Name}}`, `{{Physics_Grade}}`, `{{Due_Balance}}`).
+   - Click any detected variable pill to insert it directly into your email subject line, body, CC, or BCC fields.
+4. **Intelligent Attachment Matching**:
+   - Upload a batch of individual files (e.g., `1042.pdf`, `Report-1042.pdf`).
+   - Select which column represents the file identifier (`ID`, `Roll_No`, etc.). The matcher links files by exact, prefixed, or suffixed filenames automatically.
+5. **Interactive Confidence Grid (Live Editing)**:
+   - Preview all merged rows and columns in a live table before sending.
+   - Search across any field, edit values inline, delete test rows, and verify CC/BCC expansions and attachment counts row by row.
 
 ---
 
 ## Key Capabilities
 
-- **Multi-Dataset CSV Joining**: Upload two independent spreadsheets (e.g., student roster + examination score sheet). The engine heuristically identifies candidate join keys (or lets you select them explicitly) and merges them into a unified recipient dataset.
-- **Dynamic Handlebars Templating**: Author emails using intuitive syntax (`Hello {{Name}}, your score in {{Course}} is {{Grade}}`). Interpolation applies dynamically across the message body, subject line, CC, and BCC fields.
-- **Rich Text WYSIWYG Editor**: Craft clean HTML emails with bold, italic, underline, ordered/unordered lists, and hyperlinks.
-- **Smart Attachment Auto-Mapping**: Upload a collection of PDF files (e.g., grade cards, invoices, certificates). The system automatically maps files to recipients based on exact ID matches or prefixed/suffixed filenames (e.g., `Report_1042.pdf` &rarr; Student `1042`).
-- **Interactive Confidence Grid**:
-  - Live search and filter across all columns.
-  - Inline row editing for on-the-fly corrections without re-uploading spreadsheets.
-  - One-click deletion of corrupted or test rows.
-  - Automatic validation for missing, malformed, or duplicate email addresses.
-- **RFC-Compliant Protocol Engineering**: Assembles raw multipart MIME messages with UTF-8 encoded subject headers, isolated boundaries, and RFC 2045 76-character base64-chunked attachments.
-- **Quota Monitoring & Burst Throttling**: Built-in 2-second rate-limiting delays between dispatches to comply with Google Cloud API burst limits, accompanied by proactive alerts when datasets approach standard personal sending quotas.
-- **External System Import Bridge**: Dedicated REST endpoints (`/api/import`) allowing internal school management systems or ERPs to stage batches and transfer operators directly into the pre-loaded dispatch interface.
+- **Direct Google OAuth Delegation**: Uses Google's official OAuth 2.0 flow with a narrow `https://www.googleapis.com/auth/gmail.send` scope. We never read your inbox or store passwords.
+- **Zero Server Retention**: CSV parsing, merging, templating, and file matching happen entirely inside volatile browser memory. Nothing is stored in a database.
+- **RFC-Compliant MIME Assembly**: Assembles raw multipart MIME messages with UTF-8 encoded subject headers, isolated boundaries, and RFC 2045 76-character base64-chunked attachments.
+- **Quota Safeguards & Throttling**: Built-in 2-second rate-limiting delay between messages to respect Google burst limits, with proactive warnings when approaching daily sending ceilings.
+- **Targeted Retry**: If any individual recipient fails (e.g., network timeout), retry only the failed recipients without re-emailing those who succeeded.
+- **External Import Bridge**: Integrated REST API (`POST /api/import`) allowing upstream school portals or ERPs to stage batches and transfer operators directly into the pre-loaded dispatch interface.
 
 ---
 

@@ -92,9 +92,14 @@ export default function EmailConfig({
         )}
 
         <div>
-          <label className="label">Recipient Email Column</label>
+          <label className="label">
+            Recipient Email Column
+            <span style={{ fontSize: '0.75rem', fontWeight: 400, color: 'var(--text-muted)', marginLeft: '6px' }}>
+              (Select which column in your CSV contains recipient email addresses)
+            </span>
+          </label>
           <select className="input mb-4" value={sendToColumn} onChange={(e) => setSendToColumn(e.target.value)}>
-             <option value="">-- Select Email Column --</option>
+             <option value="">-- Select Email Column from CSV --</option>
              {availableKeys && availableKeys.map((k: string) => (
                <option key={k} value={k}>{k}</option>
              ))}
@@ -107,14 +112,23 @@ export default function EmailConfig({
         <div>
           <label className="label">Message Body</label>
           <RichTextEditor value={template} onChange={setTemplate} />
-          <div style={{ marginTop: '10px', display: 'flex', flexWrap: 'wrap', gap: '6px', alignItems: 'center' }}>
-            <span style={{ fontSize: '0.6875rem', color: 'var(--text-muted)' }}>Variables:</span>
+          <div style={{ marginTop: '12px', display: 'flex', flexWrap: 'wrap', gap: '6px', alignItems: 'center' }}>
+            <span style={{ fontSize: '0.75rem', fontWeight: 500, color: 'var(--text-secondary)' }}>Click to Insert Variable:</span>
             {availableKeys && availableKeys.length > 0 ? (
               availableKeys.map((key: string) => (
-                <span key={key} className="var-pill">{`{{${key}}}`}</span>
+                <button
+                  key={key}
+                  type="button"
+                  onClick={() => setTemplate((prev: string) => prev + ` {{${key}}}`)}
+                  className="var-pill"
+                  style={{ cursor: 'pointer', border: '1px solid var(--border)', background: 'var(--bg-input)', padding: '2px 8px', borderRadius: '6px' }}
+                  title={`Click to insert {{${key}}} into message`}
+                >
+                  + {`{{${key}}}`}
+                </button>
               ))
             ) : (
-              <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontStyle: 'italic' }}>Upload data to see variables</span>
+              <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontStyle: 'italic' }}>Upload CSV data to detect columns as dynamic variables</span>
             )}
           </div>
         </div>

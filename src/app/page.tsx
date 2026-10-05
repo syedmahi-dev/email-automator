@@ -315,6 +315,26 @@ function HomeContent() {
              <CsvUploader title="Additional Data (Optional)" onData={setFile2Data} />
           </div>
 
+          {file1Data.length > 0 && (
+            <div className="card flex flex-col gap-2 animate-fade-in" style={{ padding: '14px 20px', background: 'var(--bg-input)', borderColor: 'var(--border)' }}>
+              <div className="flex items-center justify-between" style={{ fontSize: '0.8125rem' }}>
+                <span style={{ fontWeight: 600, color: 'var(--text)' }}>
+                  Schema Detected ({Object.keys(file1Data[0] || {}).length} columns found in Primary CSV):
+                </span>
+                <span style={{ color: 'var(--text-muted)' }}>
+                  No fixed structure required · Map any column as recipient email or message variables
+                </span>
+              </div>
+              <div className="flex flex-wrap gap-1">
+                {Object.keys(file1Data[0] || {}).map(col => (
+                  <span key={col} className="badge badge-neutral" style={{ fontSize: '0.75rem', padding: '2px 8px' }}>
+                    {col}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
           {file1Data.length > 0 && file2Data.length > 0 && (
             <div className="card flex items-center justify-between animate-fade-in" style={{ padding: '16px 24px', background: 'var(--bg-input)', borderColor: 'var(--border)' }}>
                <div className="flex items-center gap-2" style={{ color: 'var(--accent)', fontWeight: 500, fontSize: '0.875rem' }}>
