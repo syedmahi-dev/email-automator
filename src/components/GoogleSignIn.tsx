@@ -1,7 +1,7 @@
 "use client";
 
 import { signIn, signOut, useSession } from "next-auth/react";
-import { LogIn, LogOut, CheckCircle2 } from "lucide-react";
+import { LogOut, CheckCircle2 } from "lucide-react";
 
 export default function GoogleSignIn() {
   const { data: session, status } = useSession();
@@ -10,7 +10,7 @@ export default function GoogleSignIn() {
     return (
       <div className="card text-center" style={{ padding: '48px 24px', animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite' }}>
         <div style={{ height: '28px', width: '200px', background: 'var(--bg-input)', margin: '0 auto 8px', borderRadius: '6px' }} />
-        <div style={{ height: '14px', width: '320px', background: 'var(--bg-input)', margin: '0 auto 24px', borderRadius: '4px' }} />
+        <div style={{ height: '14px', width: '100%', maxWidth: '320px', background: 'var(--bg-input)', margin: '0 auto 24px', borderRadius: '4px' }} />
         <div style={{ height: '40px', width: '160px', background: 'var(--bg-input)', margin: '0 auto', borderRadius: '10px' }} />
       </div>
     );

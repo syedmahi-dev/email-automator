@@ -45,7 +45,7 @@ export default function EmailConfig({
 
       <div className="flex flex-col gap-4">
         {showAdvanced && (
-          <div className="animate-fade-in" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', padding: '24px', background: 'var(--bg-input)', border: '1px solid var(--border)', borderRadius: '12px' }}>
+          <div className="animate-fade-in responsive-grid-2 compose-advanced" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', padding: '24px', background: 'var(--bg-input)', border: '1px solid var(--border)', borderRadius: '12px' }}>
             <div>
               <label className="label"><Users size={12} style={{ display: 'inline', marginRight: '4px', verticalAlign: 'text-bottom' }} /> CC</label>
               <input type="text" className="input" value={cc} onChange={(e) => setCc(e.target.value)} placeholder="email@example.com or {{ParentEmail}}" />
@@ -56,7 +56,7 @@ export default function EmailConfig({
             </div>
             <div className="col-span-2" style={{ marginTop: '8px' }}>
               <label className="label"><Paperclip size={12} style={{ display: 'inline', marginRight: '4px', verticalAlign: 'text-bottom' }} /> Attachments</label>
-              <div className="flex gap-4 items-start">
+              <div className="flex gap-4 items-start responsive-split">
                 <div style={{ flex: 1 }}>
                   <div className="dropzone" style={{ padding: '16px', position: 'relative' }}>
                     <input type="file" multiple style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', opacity: 0, cursor: 'pointer' }} onChange={handleFileChange} />

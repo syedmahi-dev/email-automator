@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ArrowLeft, ShieldCheck, Lock, CheckCircle2, ServerOff, Database, EyeOff, FileText, ExternalLink } from 'lucide-react';
+import { ArrowLeft, ShieldCheck, ServerOff, Database, FileText } from 'lucide-react';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -9,10 +9,10 @@ export const metadata: Metadata = {
 
 export default function PrivacyPolicy() {
   return (
-    <div className="animate-fade-in" style={{ maxWidth: '860px', margin: '0 auto', paddingBottom: '80px' }}>
+    <div className="legal-page animate-fade-in" style={{ maxWidth: '860px', margin: '0 auto', paddingBottom: '80px' }}>
       
       {/* Top Navigation */}
-      <div style={{ marginBottom: '32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid var(--border)', paddingBottom: '16px' }}>
+      <div className="legal-nav" style={{ marginBottom: '32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid var(--border)', paddingBottom: '16px', gap: '12px', flexWrap: 'wrap' }}>
         <Link href="/" className="btn btn-ghost btn-sm" style={{ textDecoration: 'none' }}>
           <ArrowLeft size={16} /> Back to Application
         </Link>
@@ -97,7 +97,7 @@ export default function PrivacyPolicy() {
         </section>
 
         {/* Section 3 */}
-        <section className="card" style={{ background: 'var(--bg-input)', borderColor: 'var(--border)', padding: '24px' }}>
+        <section id="limited-use" className="card" style={{ background: 'var(--bg-input)', borderColor: 'var(--border)', padding: '24px' }}>
           <h2 style={{ fontSize: '1.25rem', color: 'var(--text)', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
             <FileText size={18} style={{ color: 'var(--accent)' }} /> 3. Google API Services User Data Policy (Limited Use Disclosure)
           </h2>
@@ -220,7 +220,7 @@ export default function PrivacyPolicy() {
       </div>
 
       {/* Footer link to Terms of Service */}
-      <div style={{ marginTop: '48px', paddingTop: '24px', borderTop: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
+      <div className="legal-footer" style={{ marginTop: '48px', paddingTop: '24px', borderTop: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
         <Link href="/terms" className="btn btn-ghost btn-sm" style={{ textDecoration: 'none' }}>
           <FileText size={15} /> Read Terms of Service
         </Link>

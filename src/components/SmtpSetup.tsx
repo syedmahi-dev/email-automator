@@ -7,7 +7,7 @@ export default function SmtpSetup({ smtp, setSmtp }: any) {
         <Server size={20} className="text-primary" />
         SMTP Configuration
       </h2>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-4 responsive-grid-2">
         <div>
           <label className="input-label">SMTP Host</label>
           <input 
