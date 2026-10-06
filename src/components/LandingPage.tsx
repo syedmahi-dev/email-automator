@@ -7,10 +7,8 @@ import {
   FileSpreadsheet, 
   KeyRound, 
   FileText, 
-  Scale, 
   Lock, 
   ServerOff, 
-  CheckCircle2, 
   ExternalLink,
   Code2,
   BookOpen
@@ -110,98 +108,6 @@ export default function LandingPage() {
             </div>
           </li>
         </ul>
-      </div>
-
-      {/* Specific Legal & Policy Preview Section */}
-      <div>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px', flexWrap: 'wrap', gap: '8px' }}>
-          <h2 style={{ fontSize: '1.25rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <Scale size={20} style={{ color: 'var(--accent)' }} /> Legal Specifications & Data Governance
-          </h2>
-          <span style={{ fontSize: '0.8125rem', color: 'var(--text-muted)' }}>
-            Unambiguous terms for enterprise teams, professionals, and operators
-          </span>
-        </div>
-
-        <div className="grid grid-cols-1" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '20px' }}>
-          
-          {/* Terms of Service Card */}
-          <div className="card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', border: '1px solid var(--border)' }}>
-            <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px' }}>
-                <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'var(--accent-light)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--accent)' }}>
-                  <FileText size={18} />
-                </div>
-                <h3 style={{ fontSize: '1.0625rem' }}>Terms of Service</h3>
-              </div>
-              <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', marginBottom: '14px', lineHeight: 1.5 }}>
-                Our Terms of Service establish explicit obligations and guardrails governing the use of Email Automator:
-              </p>
-              <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.8125rem', color: 'var(--text-secondary)', marginBottom: '20px' }}>
-                <li style={{ display: 'flex', gap: '6px', alignItems: 'flex-start' }}>
-                  <CheckCircle2 size={14} style={{ color: 'var(--accent)', marginTop: '2px', flexShrink: 0 }} />
-                  <span><strong>Acceptable Use:</strong> Strict prohibition on spam, phishing campaigns, credential harvesting, malware, and deceptive header spoofing.</span>
-                </li>
-                <li style={{ display: 'flex', gap: '6px', alignItems: 'flex-start' }}>
-                  <CheckCircle2 size={14} style={{ color: 'var(--accent)', marginTop: '2px', flexShrink: 0 }} />
-                  <span><strong>Quota Accountability:</strong> Senders must honor Google daily limits (500 for standard Gmail, 2,000 for Google Workspace).</span>
-                </li>
-                <li style={{ display: 'flex', gap: '6px', alignItems: 'flex-start' }}>
-                  <CheckCircle2 size={14} style={{ color: 'var(--accent)', marginTop: '2px', flexShrink: 0 }} />
-                  <span><strong>Data Ownership:</strong> Operators retain complete data sovereignty. Data is never collected, stored, or claimed by the platform.</span>
-                </li>
-                <li style={{ display: 'flex', gap: '6px', alignItems: 'flex-start' }}>
-                  <CheckCircle2 size={14} style={{ color: 'var(--accent)', marginTop: '2px', flexShrink: 0 }} />
-                  <span><strong>Warranties & Liability:</strong> Provided AS-IS without deliverability guarantees. MIT open source licensing.</span>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <Link href="/terms" className="btn btn-ghost btn-sm" style={{ width: '100%', textDecoration: 'none' }}>
-                Read Full Terms of Service <ExternalLink size={14} />
-              </Link>
-            </div>
-          </div>
-
-          {/* Privacy Policy Card */}
-          <div className="card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', border: '1px solid var(--border)' }}>
-            <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px' }}>
-                <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'var(--success-bg)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--success)' }}>
-                  <Lock size={18} />
-                </div>
-                <h3 style={{ fontSize: '1.0625rem' }}>Privacy Policy</h3>
-              </div>
-              <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', marginBottom: '14px', lineHeight: 1.5 }}>
-                Our Privacy Policy specifically outlines technical data handling, memory lifecycle, and Google User Data compliance:
-              </p>
-              <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.8125rem', color: 'var(--text-secondary)', marginBottom: '20px' }}>
-                <li style={{ display: 'flex', gap: '6px', alignItems: 'flex-start' }}>
-                  <CheckCircle2 size={14} style={{ color: 'var(--success)', marginTop: '2px', flexShrink: 0 }} />
-                  <span><strong>No Database Retention:</strong> We do not operate relational databases, NoSQL stores, or disk logs of your recipients or attachments.</span>
-                </li>
-                <li style={{ display: 'flex', gap: '6px', alignItems: 'flex-start' }}>
-                  <CheckCircle2 size={14} style={{ color: 'var(--success)', marginTop: '2px', flexShrink: 0 }} />
-                  <span><strong>Google Limited Use:</strong> Full compliance with Google API Services User Data Policy. No third-party data transfers, ad targeting, or AI training.</span>
-                </li>
-                <li style={{ display: 'flex', gap: '6px', alignItems: 'flex-start' }}>
-                  <CheckCircle2 size={14} style={{ color: 'var(--success)', marginTop: '2px', flexShrink: 0 }} />
-                  <span><strong>Transient Lifecycle:</strong> Data exists solely in client memory and serverless runtime, dissolving as soon as requests finish.</span>
-                </li>
-                <li style={{ display: 'flex', gap: '6px', alignItems: 'flex-start' }}>
-                  <CheckCircle2 size={14} style={{ color: 'var(--success)', marginTop: '2px', flexShrink: 0 }} />
-                  <span><strong>Revocation Rights:</strong> Revoke access anytime through Google Account Permissions with zero leftover data.</span>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <Link href="/privacy" className="btn btn-ghost btn-sm" style={{ width: '100%', textDecoration: 'none' }}>
-                Read Full Privacy Policy <ExternalLink size={14} />
-              </Link>
-            </div>
-          </div>
-
-        </div>
       </div>
 
       {/* Ready to Start CTA */}
