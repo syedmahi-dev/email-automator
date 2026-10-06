@@ -20,7 +20,7 @@ export default function LandingPage() {
     <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '48px', paddingBottom: '32px' }}>
       
       {/* Hero Section */}
-      <div className="text-center" style={{ padding: '32px 0 16px' }}>
+      <div className="text-center landing-hero" style={{ padding: '32px 0 16px' }}>
         <img 
           src="/branding/email-automator-mark.svg" 
           alt="Email Automator Logo" 
@@ -42,7 +42,7 @@ export default function LandingPage() {
         <h2 style={{ fontSize: '1.25rem', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
           <Zap size={20} style={{ color: 'var(--accent)' }} /> How It Works
         </h2>
-        <div className="grid grid-cols-1" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '16px' }}>
+        <div className="grid grid-cols-1 landing-steps-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '16px' }}>
           
           <div className="card">
             <div style={{ background: 'var(--bg-input)', width: '40px', height: '40px', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px', color: 'var(--accent)' }}>
@@ -136,7 +136,7 @@ export default function LandingPage() {
             <p style={{ fontSize: '0.8125rem', lineHeight: 1.6, color: 'var(--text-secondary)', marginBottom: '14px' }}>
               A client-orchestrated, schema-agnostic bulk email automation utility for businesses, teams, and independent operators. Dispatches directly through your personal or Google Workspace account with zero server data retention.
             </p>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '0.75rem', padding: '4px 8px', borderRadius: '6px', background: 'var(--bg-input)', border: '1px solid var(--border)', color: 'var(--text-secondary)' }}>
+            <div className="production-badge" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '0.75rem', padding: '4px 8px', borderRadius: '6px', background: 'var(--bg-input)', border: '1px solid var(--border)', color: 'var(--text-secondary)' }}>
               <span>MIT Licensed</span>
               <span>-</span>
               <span>Production Domain: emailauto.syedmahi.me</span>
@@ -208,7 +208,7 @@ export default function LandingPage() {
           <div>
             Copyright 2026 Syed Mahi. Released under the MIT License.
           </div>
-          <div style={{ display: 'flex', gap: '16px' }}>
+          <div className="landing-footer-links" style={{ display: 'flex', gap: '16px' }}>
             <Link href="/terms" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Terms of Service</Link>
             <Link href="/privacy" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Privacy Policy</Link>
             <a href="https://syedmahi.me" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Developer Profile</a>
