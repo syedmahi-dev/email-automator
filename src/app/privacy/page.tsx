@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ArrowLeft, ShieldCheck, Lock, CheckCircle2, ServerOff, Database, EyeOff, FileText, ExternalLink } from 'lucide-react';
+import { ArrowLeft, ShieldCheck, ServerOff, Database, FileText } from 'lucide-react';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -9,10 +9,10 @@ export const metadata: Metadata = {
 
 export default function PrivacyPolicy() {
   return (
-    <div className="animate-fade-in" style={{ maxWidth: '860px', margin: '0 auto', paddingBottom: '80px' }}>
+    <div className="legal-page animate-fade-in" style={{ maxWidth: '860px', margin: '0 auto', paddingBottom: '80px' }}>
       
       {/* Top Navigation */}
-      <div style={{ marginBottom: '32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid var(--border)', paddingBottom: '16px' }}>
+      <div className="legal-nav" style={{ marginBottom: '32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid var(--border)', paddingBottom: '16px', gap: '12px', flexWrap: 'wrap' }}>
         <Link href="/" className="btn btn-ghost btn-sm" style={{ textDecoration: 'none' }}>
           <ArrowLeft size={16} /> Back to Application
         </Link>
@@ -91,13 +91,13 @@ export default function PrivacyPolicy() {
               <strong>Google OAuth Access Token:</strong> An ephemeral OAuth 2.0 bearer access token issued by Google is held within your local encrypted session. This token is transmitted only when making authorized API calls directly to Google official endpoints.
             </li>
             <li>
-              <strong>Transient Dispatch Envelopes:</strong> When you press &quot;Send All&quot;, your browser issues sequential HTTPS POST requests to the serverless <code>/api/send-email</code> route. The serverless function constructs an RFC 2045 MIME envelope and submits it to Google Gmail API (<code>https://gmail.googleapis.com/upload/gmail/v1/users/me/messages/send</code>). The function immediately frees all memory upon response. No logs containing recipient data are written.
+              <strong>Transient Dispatch Envelopes:</strong> When you press &quot;Send All&quot;, your browser issues sequential HTTPS POST requests to the serverless <code>/api/send-email</code> route. The serverless function constructs an RFC 2045 MIME envelope and submits it to Google Gmail API (<code className="break-token">https://gmail.googleapis.com/upload/gmail/v1/users/me/messages/send</code>). The function immediately frees all memory upon response. No logs containing recipient data are written.
             </li>
           </ul>
         </section>
 
         {/* Section 3 */}
-        <section className="card" style={{ background: 'var(--bg-input)', borderColor: 'var(--border)', padding: '24px' }}>
+        <section id="limited-use" className="card" style={{ background: 'var(--bg-input)', borderColor: 'var(--border)', padding: '24px' }}>
           <h2 style={{ fontSize: '1.25rem', color: 'var(--text)', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
             <FileText size={18} style={{ color: 'var(--accent)' }} /> 3. Google API Services User Data Policy (Limited Use Disclosure)
           </h2>
@@ -131,7 +131,7 @@ export default function PrivacyPolicy() {
           </p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <div style={{ padding: '12px 16px', background: 'var(--bg-input)', borderRadius: '8px', border: '1px solid var(--border)' }}>
-              <strong style={{ fontSize: '0.875rem', color: 'var(--text)', display: 'block' }}><code>https://www.googleapis.com/auth/gmail.send</code> (Restricted Scope)</strong>
+              <strong style={{ fontSize: '0.875rem', color: 'var(--text)', display: 'block' }}><code className="break-token">https://www.googleapis.com/auth/gmail.send</code> (Restricted Scope)</strong>
               <span style={{ fontSize: '0.8125rem', color: 'var(--text-secondary)' }}>
                 Allows the application to submit draft messages and send emails on your behalf. We cannot see received messages, read mailbox contents, or delete emails.
               </span>
@@ -220,7 +220,7 @@ export default function PrivacyPolicy() {
       </div>
 
       {/* Footer link to Terms of Service */}
-      <div style={{ marginTop: '48px', paddingTop: '24px', borderTop: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
+      <div className="legal-footer" style={{ marginTop: '48px', paddingTop: '24px', borderTop: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
         <Link href="/terms" className="btn btn-ghost btn-sm" style={{ textDecoration: 'none' }}>
           <FileText size={15} /> Read Terms of Service
         </Link>

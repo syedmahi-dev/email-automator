@@ -50,7 +50,7 @@ export default function CsvUploader({ title, onData }: any) {
         {fileName ? (
            <>
              <CheckCircle2 size={24} style={{ color: 'var(--success)' }} />
-             <span style={{ color: 'var(--success)', fontWeight: 500, fontSize: '0.875rem' }}>{fileName}</span>
+             <span style={{ color: 'var(--success)', fontWeight: 500, fontSize: '0.875rem', overflowWrap: 'anywhere', textAlign: 'center' }}>{fileName}</span>
              <span style={{ color: 'var(--text-muted)', fontSize: '0.75rem' }}>{rowCount} rows loaded · Click to replace</span>
            </>
         ) : (
