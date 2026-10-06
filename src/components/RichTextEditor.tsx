@@ -3,12 +3,13 @@ import { Bold, Italic, Underline, List, Link } from 'lucide-react';
 
 export default function RichTextEditor({ value, onChange }: { value: string, onChange: (val: string) => void }) {
   const editorRef = useRef<HTMLDivElement>(null);
+  const isTyping = useRef(false);
 
   useEffect(() => {
-    if (editorRef.current && editorRef.current.innerHTML !== value) {
+    if (editorRef.current && editorRef.current.innerHTML !== value && !isTyping.current) {
       editorRef.current.innerHTML = value;
     }
-  }, []);
+  }, [value]);
 
   const exec = (command: string, arg?: string) => {
     document.execCommand(command, false, arg);
@@ -17,7 +18,11 @@ export default function RichTextEditor({ value, onChange }: { value: string, onC
   };
 
   const handleInput = () => {
-    if (editorRef.current) onChange(editorRef.current.innerHTML);
+    if (editorRef.current) {
+      isTyping.current = true;
+      onChange(editorRef.current.innerHTML);
+      setTimeout(() => { isTyping.current = false; }, 100);
+    }
   };
 
   const addLink = () => {

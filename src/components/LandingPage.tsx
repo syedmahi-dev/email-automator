@@ -136,10 +136,10 @@ export default function LandingPage() {
             <p style={{ fontSize: '0.8125rem', lineHeight: 1.6, color: 'var(--text-secondary)', marginBottom: '14px' }}>
               A client-orchestrated, schema-agnostic bulk email automation utility for businesses, teams, and independent operators. Dispatches directly through your personal or Google Workspace account with zero server data retention.
             </p>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '0.75rem', padding: '4px 8px', borderRadius: '6px', background: 'var(--bg-input)', border: '1px solid var(--border)', color: 'var(--text-secondary)' }}>
-              <span>MIT Licensed</span>
-              <span>-</span>
-              <span>Production Domain: emailauto.syedmahi.me</span>
+            <div style={{ display: 'inline-flex', flexWrap: 'wrap', alignItems: 'center', gap: '4px 8px', fontSize: '0.75rem', padding: '6px 10px', borderRadius: '6px', background: 'var(--bg-input)', border: '1px solid var(--border)', color: 'var(--text-secondary)' }}>
+              <span style={{ whiteSpace: 'nowrap' }}>MIT Licensed</span>
+              <span style={{ opacity: 0.5 }}>&bull;</span>
+              <span style={{ wordBreak: 'break-word' }}>Production Domain: emailauto.syedmahi.me</span>
             </div>
           </div>
 

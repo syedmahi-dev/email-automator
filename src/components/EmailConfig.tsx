@@ -45,26 +45,28 @@ export default function EmailConfig({
 
       <div className="flex flex-col gap-4">
         {showAdvanced && (
-          <div className="animate-fade-in" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', padding: '24px', background: 'var(--bg-input)', border: '1px solid var(--border)', borderRadius: '12px' }}>
-            <div>
-              <label className="label"><Users size={12} style={{ display: 'inline', marginRight: '4px', verticalAlign: 'text-bottom' }} /> CC</label>
-              <input type="text" className="input" value={cc} onChange={(e) => setCc(e.target.value)} placeholder="email@example.com or {{ParentEmail}}" />
+          <div className="advanced-panel animate-fade-in">
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="label"><Users size={12} style={{ display: 'inline', marginRight: '4px', verticalAlign: 'text-bottom' }} /> CC</label>
+                <input type="text" className="input" value={cc} onChange={(e) => setCc(e.target.value)} placeholder="email@example.com or {{ParentEmail}}" />
+              </div>
+              <div>
+                <label className="label"><Users size={12} style={{ display: 'inline', marginRight: '4px', verticalAlign: 'text-bottom' }} /> BCC</label>
+                <input type="text" className="input" value={bcc} onChange={(e) => setBcc(e.target.value)} placeholder="Hidden copies..." />
+              </div>
             </div>
-            <div>
-              <label className="label"><Users size={12} style={{ display: 'inline', marginRight: '4px', verticalAlign: 'text-bottom' }} /> BCC</label>
-              <input type="text" className="input" value={bcc} onChange={(e) => setBcc(e.target.value)} placeholder="Hidden copies..." />
-            </div>
-            <div className="col-span-2" style={{ marginTop: '8px' }}>
+            <div className="mt-3">
               <label className="label"><Paperclip size={12} style={{ display: 'inline', marginRight: '4px', verticalAlign: 'text-bottom' }} /> Attachments</label>
-              <div className="flex gap-4 items-start">
-                <div style={{ flex: 1 }}>
+              <div className="attach-row">
+                <div>
                   <div className="dropzone" style={{ padding: '16px', position: 'relative' }}>
                     <input type="file" multiple style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', opacity: 0, cursor: 'pointer' }} onChange={handleFileChange} />
                     <span style={{ fontSize: '0.8125rem', color: 'var(--text-muted)' }}>Drop files or click to select</span>
                   </div>
                 </div>
-                <div style={{ flex: 1 }}>
-                  <label style={{ fontSize: '0.6875rem', color: 'var(--text-muted)', marginBottom: '4px', display: 'block' }}>Match filename to column:</label>
+                <div>
+                  <label className="label-hint" style={{ display: 'block', marginBottom: '4px' }}>Match filename to column:</label>
                   <select className="input" value={attachmentMatchColumn} onChange={(e) => setAttachmentMatchColumn(e.target.value)}>
                     <option value="">-- No auto-matching --</option>
                     {availableKeys && availableKeys.map((k: string) => (
@@ -113,7 +115,7 @@ export default function EmailConfig({
           <label className="label">Message Body</label>
           <RichTextEditor value={template} onChange={setTemplate} />
           <div style={{ marginTop: '12px', display: 'flex', flexWrap: 'wrap', gap: '6px', alignItems: 'center' }}>
-            <span style={{ fontSize: '0.75rem', fontWeight: 500, color: 'var(--text-secondary)' }}>Click to Insert Variable:</span>
+            <span className="var-list-label">Click to Insert Variable:</span>
             {availableKeys && availableKeys.length > 0 ? (
               availableKeys.map((key: string) => (
                 <button
@@ -121,14 +123,13 @@ export default function EmailConfig({
                   type="button"
                   onClick={() => setTemplate((prev: string) => prev + ` {{${key}}}`)}
                   className="var-pill"
-                  style={{ cursor: 'pointer', border: '1px solid var(--border)', background: 'var(--bg-input)', padding: '2px 8px', borderRadius: '6px' }}
                   title={`Click to insert {{${key}}} into message`}
                 >
                   + {`{{${key}}}`}
                 </button>
               ))
             ) : (
-              <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontStyle: 'italic' }}>Upload CSV data to detect columns as dynamic variables</span>
+              <span className="var-list-label" style={{ fontStyle: 'italic' }}>Upload CSV data to detect columns as dynamic variables</span>
             )}
           </div>
         </div>

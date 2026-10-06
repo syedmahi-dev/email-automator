@@ -85,14 +85,14 @@ export default function DataPreview({ data, ccTemplate, bccTemplate, attachments
 
   return (
     <div className="card" style={{ padding: '20px' }}>
-      <div className="flex items-center justify-between mb-3">
+      <div className="preview-toolbar flex items-center justify-between mb-3 flex-wrap gap-2">
         <div className="card-title" style={{ marginBottom: 0 }}>
           <div className="icon"><Table size={16} /></div>
           Data Preview
         </div>
         <div className="flex items-center gap-3">
-          <div style={{ position: 'relative' }}>
-            <Search size={13} style={{ position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
+          <div className="search-wrap">
+            <Search size={13} className="search-icon" />
             <input className="search-input" placeholder="Search..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
           </div>
           <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', whiteSpace: 'nowrap' }}>
@@ -102,10 +102,20 @@ export default function DataPreview({ data, ccTemplate, bccTemplate, attachments
       </div>
       
       <p style={{ fontSize: '0.6875rem', color: 'var(--text-muted)', fontStyle: 'italic', marginBottom: '12px' }}>
-        Hover any row to edit or remove it.
+        <span className="only-pointer">Hover any row to edit or remove it.</span>
+        <span className="only-touch">Tap Edit to modify rows.</span>
       </p>
+
+      <style>{`
+        .desktop-table { display: block; }
+        .mobile-cards { display: none; }
+        @media (max-width: 640px) {
+          .desktop-table { display: none; }
+          .mobile-cards { display: block; }
+        }
+      `}</style>
       
-      <div className="overflow-x-auto overflow-y-auto max-h-96" style={{ borderRadius: '10px', border: '1px solid var(--border)' }}>
+      <div className="desktop-table overflow-x-auto overflow-y-auto max-h-96" style={{ borderRadius: '10px', border: '1px solid var(--border)' }}>
         <table className="data-table">
           <thead>
             <tr>
@@ -164,17 +174,17 @@ export default function DataPreview({ data, ccTemplate, bccTemplate, attachments
                   <td>{getStatusBadge(row.status, emailValue)}</td>
                   <td style={{ textAlign: 'right', padding: '6px 10px' }}>
                     <div className="flex items-center justify-between gap-1" style={{ justifyContent: 'flex-end' }}>
-                      {isEditing ? (
-                        <>
-                          <button className="btn btn-accent btn-icon" style={{ width: '28px', height: '28px' }} onClick={saveEditing} title="Save"><CheckCircle size={13} /></button>
-                          <button className="btn btn-ghost btn-icon" style={{ width: '28px', height: '28px' }} onClick={cancelEditing} title="Cancel"><X size={13} /></button>
-                        </>
-                      ) : (
-                        <div className="row-actions flex gap-1">
-                          <button className="btn btn-ghost btn-icon" style={{ width: '28px', height: '28px' }} onClick={() => startEditing(idx, row)} title="Edit"><Pen size={13} /></button>
-                          <button className="btn btn-ghost btn-icon" style={{ width: '28px', height: '28px', color: 'var(--error)' }} onClick={() => handleDelete(idx)} title="Remove"><Trash2 size={13} /></button>
-                        </div>
-                      )}
+                       {isEditing ? (
+                         <>
+                           <button className="btn btn-accent btn-icon" style={{ width: '28px', height: '28px' }} onClick={saveEditing} title="Save"><CheckCircle size={13} /></button>
+                           <button className="btn btn-ghost btn-icon" style={{ width: '28px', height: '28px' }} onClick={cancelEditing} title="Cancel"><X size={13} /></button>
+                         </>
+                       ) : (
+                         <div className="row-actions flex gap-1">
+                           <button className="btn btn-ghost btn-icon" style={{ width: '28px', height: '28px' }} onClick={() => startEditing(idx, row)} title="Edit"><Pen size={13} /></button>
+                           <button className="btn btn-ghost btn-icon" style={{ width: '28px', height: '28px', color: 'var(--error)' }} onClick={() => handleDelete(idx)} title="Remove"><Trash2 size={13} /></button>
+                         </div>
+                       )}
                     </div>
                   </td>
                 </tr>
@@ -182,6 +192,74 @@ export default function DataPreview({ data, ccTemplate, bccTemplate, attachments
             })}
           </tbody>
         </table>
+      </div>
+
+      <div className="mobile-cards">
+        <ul className="row-cards">
+          {filteredData.map((row: any) => {
+            const idx = row._originalIndex;
+            let cc = '', bcc = '';
+            if (compiledCc) { try { cc = compiledCc(row); } catch {} }
+            if (compiledBcc) { try { bcc = compiledBcc(row); } catch {} }
+            
+            let matchedFiles = 0;
+            if (matchColumn && row[matchColumn] && attachments) {
+              const mv = String(row[matchColumn]).trim().toLowerCase();
+              matchedFiles = attachments.filter((f: any) => {
+                const n = f.name.replace(/\.[^.]+$/, '').toLowerCase();
+                return n === mv || n.endsWith(`_${mv}`) || n.endsWith(`-${mv}`) || n.startsWith(`${mv}_`) || n.startsWith(`${mv}-`);
+              }).length;
+            }
+
+            const isEditing = editingRowIndex === idx;
+            const emailKey = sendToColumn || headers.find(k => k.toLowerCase() === 'email') || headers.find(k => k.toLowerCase().includes('email'));
+            const emailValue = emailKey ? row[emailKey] : '';
+
+            return (
+              <li key={idx} className={`row-card ${isEditing ? 'editing' : ''}`}>
+                <div className="row-card-head">
+                  <span className="row-card-index">#{idx + 1}</span>
+                  {getStatusBadge(row.status, emailValue)}
+                </div>
+                <dl className="row-card-fields">
+                  {headers.map(h => (
+                    <div style={{ display: 'contents' }} key={h}>
+                      <dt>{h}</dt>
+                      <dd>
+                        {isEditing ? (
+                          <input className="edit-input" value={editedRowData[h] || ''} onChange={(e) => setEditedRowData({ ...editedRowData, [h]: e.target.value })} />
+                        ) : (
+                          <span>{row[h] || '-'}</span>
+                        )}
+                      </dd>
+                    </div>
+                  ))}
+                  {showExtras && (
+                    <div style={{ display: 'contents' }}>
+                      <dt>CC / BCC</dt>
+                      <dd>{cc || bcc ? `${cc ? `CC: ${cc}` : ''} ${bcc ? `BCC: ${bcc}` : ''}` : '-'}</dd>
+                      <dt>Files</dt>
+                      <dd>{matchedFiles > 0 ? `${matchedFiles} attached` : '-'}</dd>
+                    </div>
+                  )}
+                </dl>
+                <div className="row-card-actions">
+                  {isEditing ? (
+                    <>
+                      <button className="btn btn-accent btn-sm" onClick={saveEditing}><CheckCircle size={14} /> Save</button>
+                      <button className="btn btn-ghost btn-sm" onClick={cancelEditing}>Cancel</button>
+                    </>
+                  ) : (
+                    <>
+                      <button className="btn btn-ghost btn-sm" onClick={() => startEditing(idx, row)}><Pen size={14} /> Edit</button>
+                      <button className="btn btn-ghost btn-sm btn-danger" onClick={() => handleDelete(idx)}><Trash2 size={14} /> Remove</button>
+                    </>
+                  )}
+                </div>
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </div>
   );

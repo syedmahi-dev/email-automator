@@ -103,6 +103,18 @@ function HomeContent() {
     }
   }, [dataList]);
 
+  // Prevent accidental close while sending
+  useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      if (isSendingBulk) {
+        e.preventDefault();
+        e.returnValue = '';
+      }
+    };
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+  }, [isSendingBulk]);
+
   const delay = (ms: number) => new Promise(res => setTimeout(res, ms));
 
   const fileToBase64 = (file: File): Promise<string> => {
@@ -148,6 +160,15 @@ function HomeContent() {
 
   const startSendingBulk = async (retryOnly = false) => {
     setIsSendingBulk(true);
+    let wakeLock: any = null;
+    try {
+      if ('wakeLock' in navigator) {
+        wakeLock = await (navigator as any).wakeLock.request('screen');
+      }
+    } catch (err) {
+      console.log('Wake Lock request failed', err);
+    }
+
     let toSend = dataList;
     if (retryOnly) {
       toSend = dataList.filter(d => d.status === 'failed');
@@ -215,6 +236,9 @@ function HomeContent() {
 
       setProgress(prev => ({ ...prev, current: i + 1, success: successCount, failed: failCount }));
       if (i < toSend.length - 1) await delay(2000);
+    }
+    if (wakeLock) {
+      wakeLock.release().catch(console.error);
     }
     setIsSendingBulk(false);
   };
@@ -319,16 +343,16 @@ function HomeContent() {
           </div>
 
           {file1Data.length > 0 && (
-            <div className="card flex flex-col gap-2 animate-fade-in" style={{ padding: '14px 20px', background: 'var(--bg-input)', borderColor: 'var(--border)' }}>
-              <div className="flex items-center justify-between" style={{ fontSize: '0.8125rem' }}>
+            <div className="card schema-bar animate-fade-in flex-col gap-2">
+              <div className="schema-bar-head">
                 <span style={{ fontWeight: 600, color: 'var(--text)' }}>
                   Schema Detected ({Object.keys(file1Data[0] || {}).length} columns found in Primary CSV):
                 </span>
                 <span style={{ color: 'var(--text-muted)' }}>
-                  No fixed structure required · Map any column as recipient email or message variables
+                  No fixed structure required
                 </span>
               </div>
-              <div className="flex flex-wrap gap-1">
+              <div className="flex flex-wrap gap-1 mt-1">
                 {Object.keys(file1Data[0] || {}).map(col => (
                   <span key={col} className="badge badge-neutral" style={{ fontSize: '0.75rem', padding: '2px 8px' }}>
                     {col}
@@ -339,19 +363,23 @@ function HomeContent() {
           )}
 
           {file1Data.length > 0 && file2Data.length > 0 && (
-            <div className="card flex items-center justify-between animate-fade-in" style={{ padding: '16px 24px', background: 'var(--bg-input)', borderColor: 'var(--border)' }}>
-               <div className="flex items-center gap-2" style={{ color: 'var(--accent)', fontWeight: 500, fontSize: '0.875rem' }}>
+            <div className="card join-bar animate-fade-in">
+               <div className="join-bar-title">
                  <LinkIcon size={16} /> Match Columns to Merge Data
                </div>
-               <div className="flex items-center gap-3">
-                 <span style={{ fontSize: '0.8125rem', color: 'var(--text-secondary)' }}>Primary</span>
-                 <select className="input" style={{ width: '180px', padding: '6px 10px' }} value={joinKey1} onChange={(e) => setJoinKey1(e.target.value)}>
-                   {Object.keys(file1Data[0]).map(k => <option key={k} value={k}>{k}</option>)}
-                 </select>
-                 <span style={{ fontSize: '0.8125rem', color: 'var(--text-secondary)' }}>= Additional</span>
-                 <select className="input" style={{ width: '180px', padding: '6px 10px' }} value={joinKey2} onChange={(e) => setJoinKey2(e.target.value)}>
-                   {Object.keys(file2Data[0]).map(k => <option key={k} value={k}>{k}</option>)}
-                 </select>
+               <div className="join-fields">
+                 <div className="join-field">
+                   <span>Primary</span>
+                   <select className="input" value={joinKey1} onChange={(e) => setJoinKey1(e.target.value)}>
+                     {Object.keys(file1Data[0]).map(k => <option key={k} value={k}>{k}</option>)}
+                   </select>
+                 </div>
+                 <div className="join-field">
+                   <span>= Additional</span>
+                   <select className="input" value={joinKey2} onChange={(e) => setJoinKey2(e.target.value)}>
+                     {Object.keys(file2Data[0]).map(k => <option key={k} value={k}>{k}</option>)}
+                   </select>
+                 </div>
                </div>
             </div>
           )}
@@ -407,14 +435,14 @@ function HomeContent() {
                 </div>
               )}
 
-              <div className="card flex items-center justify-between">
+              <div className="card send-bar">
                 <div>
                    <h3 className="mb-1">{isFinished ? 'Complete' : 'Ready to send'}</h3>
                    <p style={{ color: 'var(--text-muted)', fontSize: '0.8125rem' }}>
                      {isFinished ? 'All emails processed.' : 'Review data above. Missing or invalid emails will be skipped.'}
                    </p>
                 </div>
-                <div className="flex gap-2">
+                <div className="send-actions">
                    {isFinished && hasFailed && (
                      <button className="btn btn-ghost" onClick={() => startSendingBulk(true)} disabled={isSendingBulk}>
                        <RotateCcw size={15} /> Retry Failed
@@ -433,18 +461,18 @@ function HomeContent() {
       )}
 
       {status === 'authenticated' && (
-        <footer style={{ marginTop: '48px', paddingTop: '20px', borderTop: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px', fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <footer className="app-footer">
+          <div className="app-footer-meta">
             <span>Email Automator</span>
             <span>-</span>
             <span>Zero Data Retention</span>
             <span>-</span>
-            <span>Send-Only Scope (gmail.send)</span>
+            <span>Send-Only Scope</span>
           </div>
-          <div style={{ display: 'flex', gap: '16px' }}>
-            <NextLink href="/terms" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Terms of Service</NextLink>
-            <NextLink href="/privacy" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Privacy Policy</NextLink>
-            <a href="https://github.com/syedmahi-dev/email-automator" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>GitHub</a>
+          <div className="app-footer-links">
+            <NextLink href="/terms">Terms of Service</NextLink>
+            <NextLink href="/privacy">Privacy Policy</NextLink>
+            <a href="https://github.com/syedmahi-dev/email-automator" target="_blank" rel="noopener noreferrer">GitHub</a>
           </div>
         </footer>
       )}
