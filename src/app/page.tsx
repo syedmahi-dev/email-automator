@@ -28,7 +28,7 @@ function HomeContent() {
   const [isImporting, setIsImporting] = useState(false);
   const [importError, setImportError] = useState('');
   
-  const [bulkTemplate, setBulkTemplate] = useState("<p>Hello {{Name}},</p><p>We have an important update for you: {{Variable1}}</p><p>Best regards,<br/>Teacher</p>");
+  const [bulkTemplate, setBulkTemplate] = useState("<p>Hello {{Name}},</p><p>We have an important update for you: {{Variable1}}</p><p>Best regards,<br/>Operations Team</p>");
   const [bulkSubject, setBulkSubject] = useState("Important Announcement");
   const [bulkCc, setBulkCc] = useState("");
   const [bulkBcc, setBulkBcc] = useState("");
@@ -58,8 +58,10 @@ function HomeContent() {
         .then(data => {
           if (data.error) { setImportError(data.error); }
           else {
-            if (data.students) setFile1Data(data.students);
-            if (data.marks) setFile2Data(data.marks);
+            const file1 = data.primary || data.contacts || data.students;
+            const file2 = data.secondary || data.records || data.marks;
+            if (file1) setFile1Data(file1);
+            if (file2) setFile2Data(file2);
           }
           setIsImporting(false);
         })

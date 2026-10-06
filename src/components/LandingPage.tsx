@@ -32,7 +32,7 @@ export default function LandingPage() {
         />
         <h1 style={{ fontSize: '2.5rem', marginBottom: '16px', letterSpacing: '-0.04em' }}>Automate Personalized Bulk Emails</h1>
         <p style={{ fontSize: '1.125rem', color: 'var(--text-secondary)', maxWidth: '640px', margin: '0 auto 24px', lineHeight: 1.6 }}>
-          Send grades, announcements, and individualized reports to hundreds of students or clients in seconds—directly from your own Gmail account with zero database retention.
+          Send personalized transactional emails, customer reports, invoices, and operational announcements to hundreds of recipients in seconds—directly from your own Gmail account with zero database retention.
         </p>
         <div style={{ maxWidth: '320px', margin: '0 auto' }}>
           <GoogleSignIn />
@@ -52,7 +52,7 @@ export default function LandingPage() {
             </div>
             <h3 style={{ fontSize: '1rem', marginBottom: '8px' }}>1. Connect Your Data</h3>
             <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>
-              Upload primary records and optional grading sheets. The system automatically detects CSV schemas and merges them based on matching ID columns in local memory.
+              Upload primary contact lists and optional secondary data tables. The system automatically detects CSV schemas and merges them based on matching key columns in local memory.
             </p>
           </div>
 
@@ -62,7 +62,7 @@ export default function LandingPage() {
             </div>
             <h3 style={{ fontSize: '1rem', marginBottom: '8px' }}>2. Compose & Attach</h3>
             <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>
-              Write your email using dynamic variables like <code>{`{{Name}}`}</code> and <code>{`{{Grade}}`}</code>. You can also automatically attach personalized files to specific recipients by matching filenames to IDs.
+              Write your email using dynamic variables like <code>{`{{Name}}`}</code> and <code>{`{{AccountBalance}}`}</code>. You can also automatically attach personalized files to specific recipients by matching filenames to IDs.
             </p>
           </div>
 
@@ -85,7 +85,7 @@ export default function LandingPage() {
           <ShieldCheck size={20} /> Security & Privacy First
         </h2>
         <p style={{ fontSize: '0.9375rem', color: 'var(--text-secondary)', marginBottom: '16px', lineHeight: 1.6 }}>
-          We understand that handling student and client data requires strict confidentiality. This tool is built to ensure your data never leaves your control.
+          We understand that handling client, customer, and stakeholder data requires strict confidentiality. This tool is built to ensure your data never leaves your control.
         </p>
         <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '12px' }}>
           <li style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
@@ -119,7 +119,7 @@ export default function LandingPage() {
             <Scale size={20} style={{ color: 'var(--accent)' }} /> Legal Specifications & Data Governance
           </h2>
           <span style={{ fontSize: '0.8125rem', color: 'var(--text-muted)' }}>
-            Unambiguous terms tailored for educators and operators
+            Unambiguous terms for enterprise teams, professionals, and operators
           </span>
         </div>
 
@@ -148,7 +148,7 @@ export default function LandingPage() {
                 </li>
                 <li style={{ display: 'flex', gap: '6px', alignItems: 'flex-start' }}>
                   <CheckCircle2 size={14} style={{ color: 'var(--accent)', marginTop: '2px', flexShrink: 0 }} />
-                  <span><strong>Student Data (FERPA):</strong> Educational operators retain sole data ownership. Data is never collected or claimed by the platform.</span>
+                  <span><strong>Data Ownership:</strong> Operators retain complete data sovereignty. Data is never collected, stored, or claimed by the platform.</span>
                 </li>
                 <li style={{ display: 'flex', gap: '6px', alignItems: 'flex-start' }}>
                   <CheckCircle2 size={14} style={{ color: 'var(--accent)', marginTop: '2px', flexShrink: 0 }} />
@@ -228,7 +228,7 @@ export default function LandingPage() {
               <span style={{ fontWeight: 700, color: 'var(--text)', fontSize: '1rem', letterSpacing: '-0.02em' }}>Email Automator</span>
             </div>
             <p style={{ fontSize: '0.8125rem', lineHeight: 1.6, color: 'var(--text-secondary)', marginBottom: '14px' }}>
-              A client-orchestrated, schema-agnostic bulk email automation utility for educators, administrators, and teams. Dispatches directly through your personal or Google Workspace account with zero server data retention.
+              A client-orchestrated, schema-agnostic bulk email automation utility for businesses, teams, and independent operators. Dispatches directly through your personal or Google Workspace account with zero server data retention.
             </p>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '0.75rem', padding: '4px 8px', borderRadius: '6px', background: 'var(--bg-input)', border: '1px solid var(--border)', color: 'var(--text-secondary)' }}>
               <span>MIT Licensed</span>

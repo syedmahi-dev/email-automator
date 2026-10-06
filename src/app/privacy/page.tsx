@@ -40,7 +40,7 @@ export default function PrivacyPolicy() {
           <ServerOff size={18} /> Zero Data Retention Guarantee
         </h2>
         <p style={{ fontSize: '0.875rem', color: 'var(--text)', marginBottom: '16px', lineHeight: 1.6 }}>
-          Email Automator operates with zero persistent backend databases. We do not store, log, sell, monetize, or retain your recipient records, email contents, CSV spreadsheets, student grades, or attached files. All data processing occurs ephemerally in volatile memory and is destroyed when processing finishes or when you close your browser tab.
+          Email Automator operates with zero persistent backend databases. We do not store, log, sell, monetize, or retain your recipient records, email contents, CSV spreadsheets, business variables, or attached files. All data processing occurs ephemerally in volatile memory and is destroyed when processing finishes or when you close your browser tab.
         </p>
         <div className="grid grid-cols-1" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '12px' }}>
           <div style={{ background: '#ffffff', padding: '12px', borderRadius: '8px', border: '1px solid var(--success-border)' }}>
@@ -68,10 +68,10 @@ export default function PrivacyPolicy() {
             Unlike traditional bulk email platforms and marketing SaaS systems, Email Automator is deliberately engineered without data storage infrastructure. We do NOT collect, archive, or retain:
           </p>
           <ul style={{ paddingLeft: '20px', display: 'flex', flexDirection: 'column', gap: '6px', marginBottom: '12px' }}>
-            <li><strong>Recipient Personal Data:</strong> Names, email addresses, phone numbers, student IDs, course numbers, or tabular attributes uploaded in your CSV files.</li>
-            <li><strong>Sensitive Academic Records:</strong> Exam scores, midterms, GPA ratings, feedback notes, or educational evaluations.</li>
+            <li><strong>Recipient Personal Data:</strong> Names, email addresses, phone numbers, unique client identifiers, or custom business attributes uploaded in your CSV files.</li>
+            <li><strong>Confidential Business & Personal Records:</strong> Financial statements, billing summaries, employee records, invoices, account balances, or proprietary operational metrics.</li>
             <li><strong>Message Contents:</strong> Email subject lines, compiled Handlebars template bodies, or personalized HTML copy.</li>
-            <li><strong>File Attachments:</strong> PDF report cards, certificates, documents, or images mapped to recipients.</li>
+            <li><strong>File Attachments:</strong> Invoices, receipts, individual statements, certificates, documents, or images mapped to recipients.</li>
             <li><strong>Inbox Contents:</strong> Received emails, draft messages, email labels, conversation threads, or mailbox contacts.</li>
             <li><strong>Tracking Analytics:</strong> Tracking pixels, link-click redirects, cross-site telemetry, or user behavior tracking.</li>
           </ul>
@@ -162,12 +162,12 @@ export default function PrivacyPolicy() {
 
         {/* Section 6 */}
         <section>
-          <h2 style={{ fontSize: '1.25rem', color: 'var(--text)', marginBottom: '12px' }}>6. Student Data Protection and FERPA Compliance</h2>
+          <h2 style={{ fontSize: '1.25rem', color: 'var(--text)', marginBottom: '12px' }}>6. Commercial and Personal Data Protection (GDPR & CCPA)</h2>
           <p style={{ marginBottom: '12px' }}>
-            Email Automator is frequently employed by teachers, university professors, and educational institutions to send exam marks and evaluation reports.
+            Email Automator is engineered for enterprises, businesses, startups, non-profits, and professionals who handle sensitive recipient, customer, vendor, and member information.
           </p>
           <p>
-            Under the United States <strong>Family Educational Rights and Privacy Act (FERPA)</strong> and international equivalents, educational records require strict handling. Because Email Automator operates without server-side storage, all student grades and evaluation sheets remain within the sole custody and control of the educational operator. No student record ever enters a vendor database.
+            Under the European Union <strong>General Data Protection Regulation (GDPR)</strong>, California Consumer Privacy Act (CCPA), and international privacy frameworks, custodians of personal data must uphold strict controls. Because Email Automator processes datasets exclusively in client volatile memory without persistent backend storage, recipient records never enter a permanent database. Operators maintain complete data sovereignty at all times.
           </p>
         </section>
 

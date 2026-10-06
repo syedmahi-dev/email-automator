@@ -28,16 +28,16 @@ Merge arbitrary spreadsheets, template personalized messages, auto-match PDF att
 
 ## What Problem Does Email Automator Solve?
 
-Email Automator was built for the messy reality of everyday institutional communication. 
+Email Automator was built for the messy reality of operational communication. 
 
-Teachers, university coordinators, and small team leads often sit with two separate spreadsheets—one containing student contact details (`ID`, `Name`, `Student Email`), another containing semester scores or dues (`Roll_No`, `Midterm`, `Final_Grade`)—along with a folder of individual PDF report cards and a strict deadline. 
+Business operators, finance teams, human resources, project leads, and administrators often handle disparate spreadsheets—one containing core contact details (`Client_ID`, `Name`, `Primary_Email`), another containing transaction details, billing balances, or status codes (`Invoice_No`, `Amount_Due`, `Status_Date`)—along with a folder of individual PDF statements or contracts and a tight timeline. 
 
 Traditional email tools create serious friction:
 - **Rigid CSV Requirements**: Most tools force you to reformat your spreadsheets to fit a rigid template (e.g., column must literally be named `email`).
-- **Privacy & Security Risks**: Handing over sensitive student records or billing data to third-party mass mailers or sharing raw account passwords via SMTP compromises institutional security.
-- **Fear of Irreversible Mistakes**: A single misaligned column can deliver private academic records or financial details to the wrong person.
+- **Privacy & Security Risks**: Handing over sensitive client records or billing data to third-party mass mailers or sharing raw account passwords via SMTP compromises organizational security.
+- **Fear of Irreversible Mistakes**: A single misaligned column can deliver private financial details or confidential records to the wrong person.
 
-**Email Automator** provides a safe, inspectable bridge: upload your spreadsheets exactly as exported from your school portal or Excel, map your columns visually, preview every rendered email in a live confidence grid, and deliver each message directly from your own Google account.
+**Email Automator** provides a safe, inspectable bridge: upload your spreadsheets exactly as exported from your CRM, billing portal, or Excel, map your columns visually, preview every rendered email in a live confidence grid, and deliver each message directly from your own Google account.
 
 ---
 
@@ -47,10 +47,10 @@ Traditional email tools create serious friction:
 
 1. **Flexible Recipient Email Selection**:
    - The system automatically detects candidate email columns, but you have full manual control.
-   - Use the **Recipient Email Column** dropdown to select any column in your dataset (`Email`, `User_Mail`, `ParentEmail`, `Contact`, etc.).
+   - Use the **Recipient Email Column** dropdown to select any column in your dataset (`Email`, `User_Mail`, `BillingEmail`, `Contact`, etc.).
 2. **Deterministic Multi-Sheet Merging**:
-   - Upload two independent CSVs (e.g., Student Master List + Grade Sheet).
-   - Use the **Match Columns to Merge Data** selector to join them on any matching key (`ID = Roll_No`, `RegNo = StudentID`, etc.). Matching is whitespace-trimmed and case-insensitive.
+   - Upload two independent CSVs (e.g., Customer Master List + Transaction Summary).
+   - Use the **Match Columns to Merge Data** selector to join them on any matching key (`ID = Invoice_No`, `AccountNo = ClientID`, etc.). Matching is whitespace-trimmed and case-insensitive.
 3. **Universal Variable Interpolation**:
    - Every column header in your CSV automatically becomes a dynamic Handlebars variable (`{{Name}}`, `{{Physics_Grade}}`, `{{Due_Balance}}`).
    - Click any detected variable pill to insert it directly into your email subject line, body, CC, or BCC fields.
@@ -78,11 +78,12 @@ Traditional email tools create serious friction:
 
 > [!IMPORTANT]
 > ### Authorized Use Cases
-> **Email Automator** is engineered strictly for **legitimate, authorized educational, academic, operational, and organizational communications**, including:
-> - Academic faculty distributing student grades, transcripts, exam schedules, and course notices.
-> - Educational administrators sending individualized admission, enrollment, or advisory updates.
-> - Corporate, startup, and non-profit operators sending personalized transactional alerts, internal team memos, event schedules, or client billing statements.
-> - Developers and systems researchers exploring OAuth-delegated email protocols and client-side data pipelines.
+> **Email Automator** is engineered strictly for **legitimate, authorized enterprise, business, operational, and organizational communications**, including:
+> - Business and finance teams distributing individualized statements, invoices, receipts, and account notices.
+> - Operations and HR teams sending personalized staff reports, onboarding summaries, and internal memos.
+> - Community and event coordinators sending personalized admission passes, tickets, or registration confirmations.
+> - Academic and organizational administrators sending official notices, schedules, and advisory reports.
+> - Developers and systems engineers exploring OAuth-delegated email protocols and client-side data pipelines.
 
 > [!CAUTION]
 > ### Prohibited Uses & Abuse Prevention
@@ -99,7 +100,7 @@ All dispatches are governed by Google's global sending policies. Senders are res
 | Account Category | Google 24-Hour Rolling Quota | Recommended Batch Size | Throttling |
 | :--- | :--- | :--- | :--- |
 | **Personal Gmail (`@gmail.com`)** | **500 emails / day** | $\le 450$ recipients | 2,000 ms per message |
-| **Google Workspace (Education / Business)** | **2,000 emails / day** | $\le 1,800$ recipients | 2,000 ms per message |
+| **Google Workspace (Business / Enterprise)** | **2,000 emails / day** | $\le 1,800$ recipients | 2,000 ms per message |
 
 *Disclaimer: The author and contributors accept no liability for any loss, account suspension, regulatory violation, or damages resulting from the use or misuse of this software.*
 
@@ -110,8 +111,8 @@ All dispatches are governed by Google's global sending policies. Senders are res
 ```mermaid
 graph TD
     subgraph Client ["Client Browser (Volatile Memory Space)"]
-        CSV1["Primary CSV (e.g. Student Roster)"] --> Parser["Papa Parse Engine"]
-        CSV2["Secondary CSV (e.g. Exam Scores)"] --> Parser
+        CSV1["Primary CSV (e.g. Contact Directory)"] --> Parser["Papa Parse Engine"]
+        CSV2["Secondary CSV (e.g. Transaction Summary)"] --> Parser
         Parser --> Joiner["Deterministic Key Matcher"]
         Joiner --> Graph["In-Memory Recipient Graph"]
         Files["File Attachments (PDFs)"] --> AttMatch["Prefix/Suffix Matcher"]
@@ -232,13 +233,13 @@ External systems (such as school portals, CRMs, or ERP backends) can programmati
 **Request Body (`application/json`):**
 ```json
 {
-  "students": [
-    { "id": "101", "name": "Jane Doe", "email": "jane@example.edu" },
-    { "id": "102", "name": "John Smith", "email": "john@example.edu" }
+  "contacts": [
+    { "id": "101", "name": "Jane Doe", "email": "jane@example.com" },
+    { "id": "102", "name": "John Smith", "email": "john@example.com" }
   ],
-  "marks": [
-    { "id": "101", "midterm": "94", "final": "98" },
-    { "id": "102", "midterm": "88", "final": "91" }
+  "records": [
+    { "id": "101", "invoice": "INV-2026-01", "balance": "$450.00" },
+    { "id": "102", "invoice": "INV-2026-02", "balance": "$210.00" }
   ]
 }
 ```
@@ -332,7 +333,7 @@ All vector and raster assets are located in [`public/branding/`](public/branding
 
 Email Automator operates with transparent, non-custodial architectural ethics:
 
-- **[Terms of Service](https://emailauto.syedmahi.me/terms)**: Comprehensive terms establishing acceptable use policies (strict prohibition of spam, phishing, and header forgery), Google sending quota compliance (500/2,000 emails per 24 hours), FERPA student data ownership, and liability disclaimers. Local source: [`src/app/terms/page.tsx`](src/app/terms/page.tsx).
+- **[Terms of Service](https://emailauto.syedmahi.me/terms)**: Comprehensive terms establishing acceptable use policies (strict prohibition of spam, phishing, and header forgery), Google sending quota compliance (500/2,000 emails per 24 hours), customer data ownership, and liability disclaimers. Local source: [`src/app/terms/page.tsx`](src/app/terms/page.tsx).
 - **[Privacy Policy](https://emailauto.syedmahi.me/privacy)**: Specific privacy policy detailing our zero persistent data retention architecture (no relational or NoSQL database), in-memory CSV execution, least-privilege OAuth scopes (`gmail.send`), and formal adherence to the [Google API Services User Data Policy](https://developers.google.com/terms/api-services-user-data-policy) (Limited Use requirements: zero advertising usage, zero third-party transfers, and zero artificial intelligence training). Local source: [`src/app/privacy/page.tsx`](src/app/privacy/page.tsx).
 
 ---

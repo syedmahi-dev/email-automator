@@ -13,17 +13,23 @@ if (!fs.existsSync(DATA_DIR)) {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { students, marks } = body;
+    const primary = body.primary || body.contacts || body.students;
+    const secondary = body.secondary || body.records || body.marks || [];
 
-    if (!students || !marks) {
-      return NextResponse.json({ error: "Missing students or marks array" }, { status: 400 });
+    if (!primary || !Array.isArray(primary) || primary.length === 0) {
+      return NextResponse.json({ error: "Missing primary dataset array (e.g. primary or contacts)" }, { status: 400 });
     }
 
     const importId = crypto.randomBytes(16).toString('hex');
     const filePath = path.join(DATA_DIR, `${importId}.json`);
 
     // Save the payload temporarily
-    fs.writeFileSync(filePath, JSON.stringify({ students, marks }), 'utf-8');
+    fs.writeFileSync(filePath, JSON.stringify({ 
+      primary, 
+      secondary,
+      students: primary, 
+      marks: secondary 
+    }), 'utf-8');
 
     // Return the redirect URL (frontend will handle the rest)
     // Using a relative URL or absolute based on request origin

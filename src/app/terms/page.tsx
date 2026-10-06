@@ -108,7 +108,7 @@ export default function TermsOfService() {
             <li>Transmit unsolicited commercial advertisements, marketing materials, or spam in violation of the United States CAN-SPAM Act of 2003, the European Union General Data Protection Regulation (GDPR), the Canadian Anti-Spam Legislation (CASL), or equivalent statutes.</li>
             <li>Execute deceptive identity phishing, password harvesting, social engineering scams, or financial fraud.</li>
             <li>Distribute computer viruses, ransomware, spyware, malicious attachments, or links to malicious domains.</li>
-            <li>Harass, stalk, threaten, defame, abuse, or invade the privacy of any person or student.</li>
+            <li>Harass, stalk, threaten, defame, abuse, or invade the privacy of any person, entity, or organization.</li>
             <li>Spoof, disguise, or manipulate email sender headers, originating addresses, or authentication signatures.</li>
             <li>Attempt to bypass, defeat, or manipulate rate limits, security filters, or abuse-prevention systems maintained by Google LLC.</li>
           </ul>
@@ -134,12 +134,12 @@ export default function TermsOfService() {
 
         {/* Section 5 */}
         <section>
-          <h2 style={{ fontSize: '1.25rem', color: 'var(--text)', marginBottom: '12px' }}>5. User Data Ownership and Academic Privacy (FERPA)</h2>
+          <h2 style={{ fontSize: '1.25rem', color: 'var(--text)', marginBottom: '12px' }}>5. User Data Ownership and Recipient Privacy</h2>
           <p style={{ marginBottom: '12px' }}>
-            The operator retains absolute, exclusive ownership of all tabular files, student registries, grade reports, subject lines, template bodies, and attached documents processed through the application. Email Automator claims no proprietary rights, copyright, or licenses over your data.
+            The operator retains complete, exclusive ownership of all tabular files, contact directories, operational metrics, transactional reports, subject lines, template bodies, and attached documents processed through the application. Email Automator claims no proprietary rights, copyright, or licenses over your data.
           </p>
           <p style={{ marginBottom: '12px' }}>
-            <strong>Family Educational Rights and Privacy Act (FERPA):</strong> When utilizing Email Automator to transmit grades, evaluations, or student records, the operator represents that they are an authorized educational agent with lawful authority to transmit such records to respective recipients. Because Email Automator does not persist, archive, or retain educational records on server databases, the service functions solely as a localized user-initiated transmission conduit.
+            <strong>Regulatory Compliance:</strong> The operator represents and warrants that they possess lawful authorization, necessary consents, and legitimate legal basis under applicable data protection frameworks (including GDPR, CCPA, and CAN-SPAM) to transmit messages to all designated recipient addresses. Because Email Automator does not persist, archive, or retain records on server databases, the service functions solely as a localized user-initiated transmission conduit.
           </p>
         </section>
 
