@@ -91,7 +91,7 @@ export default function PrivacyPolicy() {
               <strong>Google OAuth Access Token:</strong> An ephemeral OAuth 2.0 bearer access token issued by Google is held within your local encrypted session. This token is transmitted only when making authorized API calls directly to Google official endpoints.
             </li>
             <li>
-              <strong>Transient Dispatch Envelopes:</strong> When you press &quot;Send All&quot;, your browser issues sequential HTTPS POST requests to the serverless <code>/api/send-email</code> route. The serverless function constructs an RFC 2045 MIME envelope and submits it to Google Gmail API (<code>https://gmail.googleapis.com/upload/gmail/v1/users/me/messages/send</code>). The function immediately frees all memory upon response. No logs containing recipient data are written.
+              <strong>Transient Dispatch Envelopes:</strong> When you press &quot;Send All&quot;, your browser issues sequential HTTPS POST requests to the serverless <code>/api/send-email</code> route. The serverless function constructs an RFC 2045 MIME envelope and submits it to Google Gmail API (<code className="break-token">https://gmail.googleapis.com/upload/gmail/v1/users/me/messages/send</code>). The function immediately frees all memory upon response. No logs containing recipient data are written.
             </li>
           </ul>
         </section>
@@ -131,7 +131,7 @@ export default function PrivacyPolicy() {
           </p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <div style={{ padding: '12px 16px', background: 'var(--bg-input)', borderRadius: '8px', border: '1px solid var(--border)' }}>
-              <strong style={{ fontSize: '0.875rem', color: 'var(--text)', display: 'block' }}><code>https://www.googleapis.com/auth/gmail.send</code> (Restricted Scope)</strong>
+              <strong style={{ fontSize: '0.875rem', color: 'var(--text)', display: 'block' }}><code className="break-token">https://www.googleapis.com/auth/gmail.send</code> (Restricted Scope)</strong>
               <span style={{ fontSize: '0.8125rem', color: 'var(--text-secondary)' }}>
                 Allows the application to submit draft messages and send emails on your behalf. We cannot see received messages, read mailbox contents, or delete emails.
               </span>
