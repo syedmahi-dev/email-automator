@@ -78,7 +78,7 @@ export default function LandingPage() {
       </div>
 
       {/* Security & Privacy Highlights */}
-      <div className="card" style={{ borderLeft: '4px solid var(--success)', background: 'var(--success-bg)' }}>
+      <div className="card security-privacy-card" style={{ borderLeft: '4px solid var(--success)', background: 'var(--success-bg)' }}>
         <h2 style={{ fontSize: '1.25rem', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--success)' }}>
           <ShieldCheck size={20} /> Security & Privacy First
         </h2>
@@ -86,23 +86,23 @@ export default function LandingPage() {
           We understand that handling client, customer, and stakeholder data requires strict confidentiality. This tool is built to ensure your data never leaves your control.
         </p>
         <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-          <li style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
+          <li className="security-list-item" style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
             <ServerOff size={16} style={{ color: 'var(--success)', marginTop: '2px', flexShrink: 0 }} />
-            <div>
+            <div className="security-copy">
               <strong style={{ fontSize: '0.875rem', color: 'var(--text)', display: 'block' }}>Zero Data Retention</strong>
               <span style={{ fontSize: '0.8125rem', color: 'var(--text-secondary)' }}>Your CSV files, email content, and attachments are processed entirely in-memory. We do not use databases, and nothing is saved on our servers. When you close the tab, the data is gone forever.</span>
             </div>
           </li>
-          <li style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
+          <li className="security-list-item" style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
             <KeyRound size={16} style={{ color: 'var(--success)', marginTop: '2px', flexShrink: 0 }} />
-            <div>
+            <div className="security-copy">
               <strong style={{ fontSize: '0.875rem', color: 'var(--text)', display: 'block' }}>Restricted Email Scopes</strong>
-              <span style={{ fontSize: '0.8125rem', color: 'var(--text-secondary)' }}>We only request the specific Google permission required to <em>send</em> emails on your behalf (<code>https://www.googleapis.com/auth/gmail.send</code>). We cannot read your inbox, see your received emails, or delete anything.</span>
+              <span style={{ fontSize: '0.8125rem', color: 'var(--text-secondary)' }}>We only request the specific Google permission required to <em>send</em> emails on your behalf (<code className="break-token">https://www.googleapis.com/auth/gmail.send</code>). We cannot read your inbox, see your received emails, or delete anything.</span>
             </div>
           </li>
-          <li style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
+          <li className="security-list-item" style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
             <Lock size={16} style={{ color: 'var(--success)', marginTop: '2px', flexShrink: 0 }} />
-            <div>
+            <div className="security-copy">
               <strong style={{ fontSize: '0.875rem', color: 'var(--text)', display: 'block' }}>Google API Limited Use Adherence</strong>
               <span style={{ fontSize: '0.8125rem', color: 'var(--text-secondary)' }}>Email Automator adheres strictly to the Google API Services User Data Policy, including Limited Use requirements. We never transfer Google user data to third parties, never use it for advertising, and never use it to train AI models.</span>
             </div>

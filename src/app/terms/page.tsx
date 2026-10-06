@@ -81,13 +81,13 @@ export default function TermsOfService() {
         </section>
 
         {/* Section 2 */}
-        <section>
+        <section className="legal-scope-section">
           <h2 style={{ fontSize: '1.25rem', color: 'var(--text)', marginBottom: '12px' }}>2. Authentication and Google OAuth Authorization</h2>
           <p style={{ marginBottom: '12px' }}>
             To utilize email dispatch features, operators must authenticate through Google OAuth 2.0. By authenticating, you authorize Email Automator to request the following specific scopes:
           </p>
           <ul style={{ paddingLeft: '20px', display: 'flex', flexDirection: 'column', gap: '6px', marginBottom: '12px' }}>
-            <li><code>https://www.googleapis.com/auth/gmail.send</code>: Required strictly to transmit generated email messages.</li>
+            <li><code className="break-token">https://www.googleapis.com/auth/gmail.send</code>: Required strictly to transmit generated email messages.</li>
             <li><code>openid</code>, <code>email</code>, <code>profile</code>: Required to establish your session identity and display your sender address.</li>
           </ul>
           <p style={{ marginBottom: '12px' }}>

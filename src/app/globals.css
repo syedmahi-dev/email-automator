@@ -616,3 +616,75 @@ textarea {
     text-align: center;
   }
 }
+
+
+/* ---- Hard overflow containment ---- */
+body,
+main,
+section,
+article,
+.card,
+.security-privacy-card,
+.legal-page {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.security-list-item {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.security-copy {
+  min-width: 0;
+  max-width: 100%;
+  flex: 1 1 auto;
+}
+
+.security-copy > *,
+.legal-page li,
+.legal-page p,
+.legal-page span,
+.legal-page strong {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.break-token,
+.legal-page code,
+.security-copy code {
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+  word-break: break-word !important;
+  hyphens: auto;
+}
+
+@supports (word-break: auto-phrase) {
+  .break-token {
+    word-break: auto-phrase;
+  }
+}
+
+@media (max-width: 640px) {
+  .security-privacy-card {
+    overflow: hidden;
+  }
+
+  .security-list-item {
+    width: 100%;
+  }
+
+  .security-copy {
+    width: calc(100% - 26px);
+  }
+
+  .legal-scope-section li {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .legal-scope-section code {
+    display: inline;
+    max-width: 100%;
+  }
+}
