@@ -1,4 +1,4 @@
-import { AlertCircle, CheckCircle, Clock, Paperclip, Users, Pen, X, Trash2, Search, Table } from 'lucide-react';
+import { AlertCircle, CheckCircle, Clock, Paperclip, Pen, X, Trash2, Search, Table } from 'lucide-react';
 import Handlebars from 'handlebars';
 import { useState, useMemo } from 'react';
 
