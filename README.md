@@ -275,6 +275,10 @@ email-automator/
 │   │   │   ├── auth/[...nextauth]/route.ts  # NextAuth Google OAuth handler
 │   │   │   ├── import/route.ts              # External system data staging bridge
 │   │   │   └── send-email/route.ts          # RFC 2045 MIME generator & Gmail API caller
+│   │   ├── privacy/
+│   │   │   └── page.tsx         # Privacy Policy & Google Limited Use compliance
+│   │   ├── terms/
+│   │   │   └── page.tsx         # Terms of Service & Acceptable Use Policy
 │   │   ├── globals.css          # Editorial theme styling tokens & utility rules
 │   │   ├── icon.png             # Application favicon mark (192x192)
 │   │   ├── layout.tsx           # Root HTML layout and provider wrapping
@@ -321,6 +325,15 @@ All vector and raster assets are located in [`public/branding/`](public/branding
 - **Monochrome Mark**: [`email-automator-mark-mono.svg`](public/branding/email-automator-mark-mono.svg)
 - **PWA & Favicon**: [`email-automator-favicon-192.png`](public/branding/email-automator-favicon-192.png)
 - **High-Res Master Renders**: `email-automator-mark-512.png` and `email-automator-mark-1024.png`
+
+---
+
+## Legal & Privacy Governance
+
+Email Automator operates with transparent, non-custodial architectural ethics:
+
+- **[Terms of Service](https://emailauto.syedmahi.me/terms)**: Comprehensive terms establishing acceptable use policies (strict prohibition of spam, phishing, and header forgery), Google sending quota compliance (500/2,000 emails per 24 hours), FERPA student data ownership, and liability disclaimers. Local source: [`src/app/terms/page.tsx`](src/app/terms/page.tsx).
+- **[Privacy Policy](https://emailauto.syedmahi.me/privacy)**: Specific privacy policy detailing our zero persistent data retention architecture (no relational or NoSQL database), in-memory CSV execution, least-privilege OAuth scopes (`gmail.send`), and formal adherence to the [Google API Services User Data Policy](https://developers.google.com/terms/api-services-user-data-policy) (Limited Use requirements: zero advertising usage, zero third-party transfers, and zero artificial intelligence training). Local source: [`src/app/privacy/page.tsx`](src/app/privacy/page.tsx).
 
 ---
 

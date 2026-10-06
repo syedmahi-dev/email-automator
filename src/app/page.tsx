@@ -3,6 +3,7 @@
 import { useState, useEffect, Suspense } from 'react';
 import { useSession } from 'next-auth/react';
 import { useSearchParams } from 'next/navigation';
+import NextLink from 'next/link';
 import GoogleSignIn from '@/components/GoogleSignIn';
 import CsvUploader from '@/components/CsvUploader';
 import EmailConfig from '@/components/EmailConfig';
@@ -427,6 +428,23 @@ function HomeContent() {
         </div>
       )}
       </div>
+      )}
+
+      {status === 'authenticated' && (
+        <footer style={{ marginTop: '48px', paddingTop: '20px', borderTop: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px', fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span>Email Automator</span>
+            <span>-</span>
+            <span>Zero Data Retention</span>
+            <span>-</span>
+            <span>Send-Only Scope (gmail.send)</span>
+          </div>
+          <div style={{ display: 'flex', gap: '16px' }}>
+            <NextLink href="/terms" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Terms of Service</NextLink>
+            <NextLink href="/privacy" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Privacy Policy</NextLink>
+            <a href="https://github.com/syedmahi-dev/email-automator" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>GitHub</a>
+          </div>
+        </footer>
       )}
     </div>
   );
