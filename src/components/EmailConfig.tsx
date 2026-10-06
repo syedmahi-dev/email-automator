@@ -45,7 +45,7 @@ export default function EmailConfig({
 
       <div className="flex flex-col gap-4">
         {showAdvanced && (
-          <div className="animate-fade-in responsive-grid-2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', padding: '24px', background: 'var(--bg-input)', border: '1px solid var(--border)', borderRadius: '12px' }}>
+          <div className="animate-fade-in responsive-grid-2 compose-advanced" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', padding: '24px', background: 'var(--bg-input)', border: '1px solid var(--border)', borderRadius: '12px' }}>
             <div>
               <label className="label"><Users size={12} style={{ display: 'inline', marginRight: '4px', verticalAlign: 'text-bottom' }} /> CC</label>
               <input type="text" className="input" value={cc} onChange={(e) => setCc(e.target.value)} placeholder="email@example.com or {{ParentEmail}}" />
