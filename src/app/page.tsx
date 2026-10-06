@@ -320,7 +320,7 @@ function HomeContent() {
 
           {file1Data.length > 0 && (
             <div className="card flex flex-col gap-2 animate-fade-in" style={{ padding: '14px 20px', background: 'var(--bg-input)', borderColor: 'var(--border)' }}>
-              <div className="flex items-center justify-between" style={{ fontSize: '0.8125rem' }}>
+              <div className="flex items-center justify-between responsive-toolbar" style={{ fontSize: '0.8125rem', gap: '8px' }}>
                 <span style={{ fontWeight: 600, color: 'var(--text)' }}>
                   Schema Detected ({Object.keys(file1Data[0] || {}).length} columns found in Primary CSV):
                 </span>
@@ -339,11 +339,11 @@ function HomeContent() {
           )}
 
           {file1Data.length > 0 && file2Data.length > 0 && (
-            <div className="card flex items-center justify-between animate-fade-in" style={{ padding: '16px 24px', background: 'var(--bg-input)', borderColor: 'var(--border)' }}>
+            <div className="card flex items-center justify-between animate-fade-in responsive-toolbar" style={{ padding: '16px 24px', background: 'var(--bg-input)', borderColor: 'var(--border)' }}>
                <div className="flex items-center gap-2" style={{ color: 'var(--accent)', fontWeight: 500, fontSize: '0.875rem' }}>
                  <LinkIcon size={16} /> Match Columns to Merge Data
                </div>
-               <div className="flex items-center gap-3">
+               <div className="flex items-center gap-3 merge-controls">
                  <span style={{ fontSize: '0.8125rem', color: 'var(--text-secondary)' }}>Primary</span>
                  <select className="input" style={{ width: '180px', padding: '6px 10px' }} value={joinKey1} onChange={(e) => setJoinKey1(e.target.value)}>
                    {Object.keys(file1Data[0]).map(k => <option key={k} value={k}>{k}</option>)}
@@ -382,7 +382,7 @@ function HomeContent() {
               
               {progress.total > 0 && (
                  <div className="card animate-fade-in">
-                   <div className="flex justify-between mb-2" style={{ fontSize: '0.8125rem', fontWeight: 500 }}>
+                   <div className="flex justify-between mb-2 progress-summary" style={{ fontSize: '0.8125rem', fontWeight: 500 }}>
                       <span style={{ color: 'var(--text-secondary)' }}>Progress: {progress.current} / {progress.total}</span>
                       <span className="flex gap-4">
                          <span style={{ color: 'var(--success)' }}>{progress.success} sent</span>
@@ -407,7 +407,7 @@ function HomeContent() {
                 </div>
               )}
 
-              <div className="card flex items-center justify-between">
+              <div className="card flex items-center justify-between send-panel">
                 <div>
                    <h3 className="mb-1">{isFinished ? 'Complete' : 'Ready to send'}</h3>
                    <p style={{ color: 'var(--text-muted)', fontSize: '0.8125rem' }}>
@@ -433,15 +433,15 @@ function HomeContent() {
       )}
 
       {status === 'authenticated' && (
-        <footer style={{ marginTop: '48px', paddingTop: '20px', borderTop: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px', fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <footer className="auth-footer" style={{ marginTop: '48px', paddingTop: '20px', borderTop: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px', fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+          <div className="auth-footer-status" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <span>Email Automator</span>
             <span>-</span>
             <span>Zero Data Retention</span>
             <span>-</span>
             <span>Send-Only Scope (gmail.send)</span>
           </div>
-          <div style={{ display: 'flex', gap: '16px' }}>
+          <div className="auth-footer-links" style={{ display: 'flex', gap: '16px' }}>
             <NextLink href="/terms" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Terms of Service</NextLink>
             <NextLink href="/privacy" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Privacy Policy</NextLink>
             <a href="https://github.com/syedmahi-dev/email-automator" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>GitHub</a>
