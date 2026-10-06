@@ -9,7 +9,7 @@ import CsvUploader from '@/components/CsvUploader';
 import EmailConfig from '@/components/EmailConfig';
 import DataPreview from '@/components/DataPreview';
 import LandingPage from '@/components/LandingPage';
-import { Send, Loader2, AlertTriangle, RotateCcw, Link as LinkIcon, User, Layers, Mail } from 'lucide-react';
+import { Send, Loader2, AlertTriangle, RotateCcw, Link as LinkIcon, User, Layers } from 'lucide-react';
 
 import Handlebars from 'handlebars';
 
