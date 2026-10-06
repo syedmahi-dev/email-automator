@@ -74,7 +74,7 @@ export default function DataPreview({ data, ccTemplate, bccTemplate, attachments
         <div className="card-header">
           <div className="card-title"><div className="icon"><Table size={16} /></div>Data Preview</div>
         </div>
-        <div className="flex flex-col items-center justify-center" style={{ padding: '64px 0', border: '1px dashed var(--border)', borderRadius: '12px', background: 'var(--bg)' }}>
+        <div className="flex flex-col items-center justify-center empty-state" style={{ padding: '64px 0', border: '1px dashed var(--border)', borderRadius: '12px', background: 'var(--bg)' }}>
            <Table size={32} style={{ color: 'var(--text-muted)', opacity: 0.5, marginBottom: '16px' }} />
            <p style={{ fontWeight: 500, color: 'var(--text)', marginBottom: '4px' }}>No data loaded</p>
            <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>Upload a CSV file to preview and manage your email data here.</p>
@@ -85,12 +85,12 @@ export default function DataPreview({ data, ccTemplate, bccTemplate, attachments
 
   return (
     <div className="card" style={{ padding: '20px' }}>
-      <div className="flex items-center justify-between mb-3">
+      <div className="flex items-center justify-between mb-3 data-preview-toolbar">
         <div className="card-title" style={{ marginBottom: 0 }}>
           <div className="icon"><Table size={16} /></div>
           Data Preview
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 data-preview-actions">
           <div style={{ position: 'relative' }}>
             <Search size={13} style={{ position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
             <input className="search-input" placeholder="Search..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
