@@ -9,10 +9,10 @@ export const metadata: Metadata = {
 
 export default function TermsOfService() {
   return (
-    <div className="animate-fade-in" style={{ maxWidth: '860px', margin: '0 auto', paddingBottom: '80px' }}>
+    <div className="legal-page animate-fade-in" style={{ maxWidth: '860px', margin: '0 auto', paddingBottom: '80px' }}>
       
       {/* Top Navigation */}
-      <div style={{ marginBottom: '32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid var(--border)', paddingBottom: '16px' }}>
+      <div className="legal-nav" style={{ marginBottom: '32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid var(--border)', paddingBottom: '16px', gap: '12px', flexWrap: 'wrap' }}>
         <Link href="/" className="btn btn-ghost btn-sm" style={{ textDecoration: 'none' }}>
           <ArrowLeft size={16} /> Back to Application
         </Link>
@@ -195,7 +195,7 @@ export default function TermsOfService() {
       </div>
 
       {/* Footer link to Privacy Policy */}
-      <div style={{ marginTop: '48px', paddingTop: '24px', borderTop: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
+      <div className="legal-footer" style={{ marginTop: '48px', paddingTop: '24px', borderTop: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
         <Link href="/privacy" className="btn btn-ghost btn-sm" style={{ textDecoration: 'none' }}>
           <Lock size={15} /> Read Privacy Policy
         </Link>
