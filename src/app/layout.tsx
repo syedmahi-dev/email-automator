@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import localFont from 'next/font/local';
 import "./globals.css";
 import { Providers } from "@/components/Providers";
+import { Analytics } from '@vercel/analytics/next';
 
 const satoshi = localFont({
   src: [
@@ -55,6 +56,7 @@ export default function RootLayout({
             {children}
           </main>
         </Providers>
+        <Analytics />
       </body>
     </html>
   );
